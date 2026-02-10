@@ -1,3 +1,0 @@
-<?php
-hash_hkdf()
-?>
