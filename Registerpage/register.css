@@ -1,0 +1,151 @@
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+
+.left-side {
+  flex: 1;
+
+  background: url("Images/Other things (2).png") no-repeat center center;
+
+  background-size: cover;
+  position: relative; 
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.logo {
+  width: 120px;
+  height: auto;
+}
+
+
+.right-side {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+ 
+  background: #d4c4f2;
+}
+
+
+.form-container {
+  width: 380px; 
+  padding: 35px; 
+  background: white;
+  border-radius: 12px; 
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+  text-align: center;
+}
+
+.welcome-text {
+  font-family: 'Kalam', cursive;
+  font-size: 36px; 
+  margin-bottom: 5px;
+}
+
+.brand-text {
+  font-family: 'Manual', sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+  color: #555;
+}
+
+label {
+  display: block;
+  margin-top: 12px;
+  text-align: left;
+  font-weight: bold;
+  color: #333;
+}
+
+input {
+  width: 100%;
+  padding: 12px; 
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px; 
+}
+
+
+button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #333;
+}
+
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 25px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+
+.divider span {
+  padding: 0 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+
+.google-btn button {
+  background: white;
+  color: black;
+  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 30px; 
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; 
+}
+
+.google-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.signin-text {
+  margin-top: 18px;
+  color: #555;
+}
+
+.signin-text a {
+  color: #6a0dad;
+  text-decoration: none;
+  font-weight: bold;
+}
+
