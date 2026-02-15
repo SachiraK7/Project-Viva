@@ -100,7 +100,9 @@ $conn->close();
                     </div>
 
                     <button type="button" class="google-btn">
-                        <img src="google.png" alt="Google">
+                        <a href="https://accounts.google.com/signin/v2/identifier" target="_blank">
+                            <img src="google.png" alt="Google">
+                        </a>
                     </button>
 
                     <p class="signup-link">Don't have an account? <a href="C:\xampp\htdocs\Viva\Project-Viva\Register page\register.php">Sign Up</a></p>
