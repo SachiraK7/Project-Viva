@@ -13,7 +13,7 @@ body {
 .left-side {
   flex: 1;
 
-  background: url("Images/Other things (2).png") no-repeat center center;
+  background: url("Registerpage\bg pic.png") no-repeat center center;
 
   background-size: cover;
   position: relative; 
