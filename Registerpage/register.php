@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("sss", $username, $email, $hashed_password);
 
             if ($stmt->execute()) {
-                header("Location: login.php");
+                header("Location:/Webproject/Project-Viva/Loginpage/login.php");
                 exit();
             } else {
                 $message = "Something went wrong. Please try again.";
@@ -80,59 +80,73 @@ $conn->close();
 
 <body>
 
-<div class="container">
+<body>
 
-    <div class="left-side">
-        <img src="dashboardlogo (1).png" alt="Spendify Logo" class="logo">
-    </div>
+<div class="page-wrapper">
 
-    <div class="right-side"> 
-        <div class="form-container">  
+    <div class="top-logo">
+   <img src="dashboardlogo (1).png">
+</div>
 
-            <h2 class="welcome-text">Welcome</h2>
-            <p class="brand-text">Create an Account</p>
+    
 
-            <form action="register.php" method="POST" onsubmit="return validateForm()">
+    <div class="container">
 
-               
+        <div class="left-side">
+            <img src="bg pic.png" alt="Money Illustration">
+        </div>
+
+        <div class="right-side">
+    <div class="form-card">
+
+       
+        <div class="card-top">
+            <h1 class="welcome">Welcome</h1>
+        </div>
+
+        
+        <div class="card-bottom">
+
+            <p class="create-text">CREATE AN ACCOUNT</p>
+
+            <form action="register.php" method="POST">
+
                 <?php if (!empty($message)) { ?>
-                    <p style="color:red;"><?php echo $message; ?></p>
+                    <p class="error-msg"><?php echo $message; ?></p>
                 <?php } ?>
 
-                <label for="name">Name</label>
-                <input type="text" id="name" name="username" placeholder="Simon Riley" required>
+                <label>Name</label>
+                <input type="text" name="username" placeholder='eg: "Simon Riley"' required>
 
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="simon@company.com" required>
+                <label>Email</label>
+                <input type="email" name="email" placeholder='eg: "simon@company.com"' required>
 
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Dh36#&58" required minlength="8">
+                <label>Password</label>
+                <input type="password" name="password" placeholder='eg: "Dh36#&58"' required>
 
-                <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" name="confirm_password" placeholder="Dh36#&!*" required>
+                <label>Confirm Password</label>
+                <input type="password" name="confirm_password" placeholder='eg: "Dh36#&!*"' required>
 
-                <button type="submit">Sign Up</button>
+                <button type="submit" class="signup-btn">Sign Up</button>
 
                 <div class="divider">
                     <span>Or Sign Up With</span>
                 </div>
 
-                <div class="google-btn">
-                    <button type="button">
-                        <img src="google.png" alt="Google Icon" class="google-icon">
-                        Sign Up with Google
-                    </button>
+                <div class="google-circle">
+                    <img src="google.png">
                 </div>
 
-                <p class="signin-text">
+                <p class="signin">
                     Already have an account? <a href="login.php">Sign in</a>
                 </p>
 
             </form>
+
         </div>
     </div>
-
 </div>
+
 
 </body>
 </html>
