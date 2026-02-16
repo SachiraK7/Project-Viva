@@ -22,8 +22,8 @@ body {
 /* Logo Top Right */
 .logo-container {
     position: absolute;
-    top: 30px;
-    right: 50px;
+    top: 5px;
+    right: 20px;
 }
 
 .brand-logo {
