@@ -120,6 +120,9 @@ body {
 .forgot-pass {
     color: #000000;
     text-decoration: none;
+    display: block;
+    margin-top: -25px;
+    text-align: right;
 }
 
 /* Sign In Button */
@@ -131,6 +134,7 @@ body {
     border-radius: 25px;
     font-size: 1rem;
     cursor: pointer;
+    margin-top: 10px;
     margin-bottom: 20px;
     transition: 0.3s;
 }
@@ -164,12 +168,12 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .google-btn img {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     background: white; /* Optional white circle bg */
     border-radius: 50%;
 }
@@ -193,6 +197,24 @@ body {
     margin-bottom: 15px;
     font-size: 0.9rem;
 }
+.footer-nav {
+  position: fixed;     /* keeps it in place even when scrolling */
+  bottom: 0;           /* anchors to the bottom */
+  left: 0;             /* anchors to the left */
+  margin: 0;           /* remove extra spacing */
+  padding: 10px;       /* add some breathing room */
+  background-color: #f8f8f8; /* optional: background for visibility */
+}
+.footer-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+}
+.footer-nav a {
+  text-decoration: none;
+  color: #333;
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {
