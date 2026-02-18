@@ -1,151 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
+    height: 100vh;
+    width: 100%;
+    /* Use bg pic.png */
+    background-image: url('bg pic.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-end; /* Card on the right */
+    align-items: center;
+    padding-right: 22%;
 }
 
-.container {
-  display: flex;
-  height: 100vh;
+.logo-container {
+    position: absolute;
+    top: 30px;
+    right: 50px;
+}
+.brand-logo {
+    width: 160px;
+    height: auto;
 }
 
-
-.left-side {
-  flex: 1;
-
-  background: url("Images/Other things (2).png") no-repeat center center;
-
-  background-size: cover;
-  position: relative; 
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 20px;
+/* Card Container */
+.signup-card {
+    width: 380px;
+    background-color: transparent;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-.logo {
-  width: 120px;
-  height: auto;
+/* Header Section (Light Lavender) */
+.card-header {
+    background-color: #e0dcfc; 
+    padding: 20px 0;
+    text-align: center;
 }
 
-
-.right-side {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
- 
-  background: #d4c4f2;
+.card-header h1 {
+    font-family: 'kalam', cursive;
+    font-size: 3rem;
+    color: #000;
+    font-weight: 700;
 }
 
-
-.form-container {
-  width: 380px; 
-  padding: 35px; 
-  background: white;
-  border-radius: 12px; 
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
-  text-align: center;
+/* Body Section (Main Purple) */
+.card-body {
+    background-color: #8c82fc;
+    padding: 25px 35px;
+    color: white; /* Text is black in header, but likely dark/white in body? Image shows dark labels */
 }
 
-.welcome-text {
-  font-family: 'Kalam', cursive;
-  font-size: 36px; 
-  margin-bottom: 5px;
+.card-body h3 {
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: #1a1a1a; /* Dark text for "CREATE AN ACCOUNT" based on image contrast */
 }
 
-.brand-text {
-  font-family: 'Manual', sans-serif;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 25px;
-  color: #555;
+/* Form Fields */
+.form-group {
+    margin-bottom: 12px;
 }
 
-label {
-  display: block;
-  margin-top: 12px;
-  text-align: left;
-  font-weight: bold;
-  color: #333;
+.form-group label {
+    display: block;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+    color: #1a1a1a; /* Dark labels */
+    margin-left: 10px;
 }
 
-input {
-  width: 100%;
-  padding: 12px; 
-  margin-top: 6px;
-  border: 1px solid #ccc;
-  border-radius: 6px; 
+.form-group input {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 25px; /* Pill shape */
+    border: none;
+    outline: none;
+    font-size: 0.85rem;
+    color: #333;
+    background: white;
 }
 
-
-button {
-  margin-top: 20px;
-  width: 100%;
-  padding: 14px;
-  background: black;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
+/* Placeholder styling */
+::placeholder {
+    color: #999;
+    font-size: 0.8rem;
 }
 
-button:hover {
-  background: #333;
+/* Sign Up Button (Black Pill) */
+.signup-btn {
+    width: 120px;
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+    background-color: black;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.signup-btn:hover {
+    background-color: #333;
 }
 
-
+/* Divider */
 .divider {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin: 25px 0;
+    display: flex;
+    align-items: center;
+    font-size: 0.7rem;
+    color: #333; /* Darker text for divider */
+    margin-bottom: 15px;
 }
-
-.divider::before,
-.divider::after {
-  content: "";
-  flex: 1;
-  border-bottom: 1px solid #ccc;
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
 }
-
 .divider span {
-  padding: 0 10px;
-  font-weight: bold;
-  color: #333;
+    padding: 0 10px;
+}
+
+/* Google Button (Black Circle) */
+.social-login {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
 }
 
 
-.google-btn button {
-  background: white;
-  color: black;
-  border: 1px solid #ccc;
-  padding: 12px;
-  border-radius: 30px; 
-  cursor: pointer;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px; 
+
+/* Footer Link */
+.login-link {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #1a1a1a;
 }
 
-.google-icon {
-  width: 20px;
-  height: 20px;
+.login-link a {
+    color: #fff; /* White link for contrast on purple bg? Or dark? */
+    /* Based on image, the background is purple, text seems dark/mixed. */
+    /* Let's make link white to pop */
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
 }
 
-.signin-text {
-  margin-top: 18px;
-  color: #555;
-}
+/* Messages */
+.error-msg { background: #ff4444; color: white; padding: 5px; text-align: center; border-radius: 10px; margin-bottom: 10px; font-size: 0.8rem; }
+.success-msg { background: #00C851; color: white; padding: 5px; text-align: center; border-radius: 10px; margin-bottom: 10px; font-size: 0.8rem; }
 
-.signin-text a {
-  color: #6a0dad;
-  text-decoration: none;
-  font-weight: bold;
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        justify-content: center;
+        padding-right: 0;
+        background-position: left;
+    }
 }
-

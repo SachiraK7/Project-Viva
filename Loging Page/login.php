@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// --- DATABASE CONNECTION ---
+// DATABASE CONNECTION
 $servername = "localhost";
 $username_db = "root";
 $password_db = "";
@@ -15,70 +15,47 @@ if ($conn->connect_error) {
 
 $message = "";
 
-// --- 1. NORMAL LOGIN HANDLER ---
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'normal_login') {
-    $email = $conn->real_escape_string($_POST['email']);
-    $pass = $_POST['password'];
+// FORM SUBMISSION LOGIC
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'login') {
 
-    $sql = "SELECT * FROM users WHERE email = '$email'";
-    $result = $conn->query($sql);
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        // In a real app, use: if(password_verify($pass, $row['password']))
-        if ($pass === $row['password']) {
-            $_SESSION['user_id'] = $row['id'];
-            $_SESSION['email'] = $row['email'];
-            $message = "<div class='success-msg'>Login Successful! Welcome back.</div>";
-            // header("Location: dashboard.php"); // Redirect here
-        } else {
-            $message = "<div class='error-msg'>Incorrect password.</div>";
-        }
-    } else {
-        $message = "<div class='error-msg'>User not found.</div>";
+    // SERVER-SIDE VALIDATION
+    if (empty($email) || empty($password)) {
+        $message = "<div class='error-msg'>All fields are required!</div>";
     }
-}
+    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $message = "<div class='error-msg'>Invalid email format!</div>";
+    }
+    else {
+        // CHECK IF USER EXISTS
+        $stmt = $conn->prepare("SELECT id, full_name, password FROM users WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($id, $full_name, $hashed_password);
 
-// --- 2. GOOGLE LOGIN HANDLER (Backend) ---
-// This block runs when JavaScript sends the Google Token
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['google_token'])) {
-    $id_token = $_POST['google_token'];
+        if ($stmt->num_rows == 1) {
+            $stmt->fetch();
+            if (password_verify($password, $hashed_password)) {
+                // LOGIN SUCCESS
+                $_SESSION['user_id'] = $id;
+                $_SESSION['user_name'] = $full_name;
+                $_SESSION['user_email'] = $email;
 
-    // Verify token with Google (Simple verification for this example)
-    // In production, use the official Google Client Library for PHP
-    $payload = json_decode(file_get_contents("https://oauth2.googleapis.com/tokeninfo?id_token=" . $id_token), true);
-
-    if (isset($payload['email'])) {
-        $g_email = $conn->real_escape_string($payload['email']);
-        $g_name = $conn->real_escape_string($payload['name']);
-        $g_id = $conn->real_escape_string($payload['sub']);
-
-        // Check if user exists
-        $check = $conn->query("SELECT * FROM users WHERE email='$g_email'");
-
-        if ($check->num_rows > 0) {
-            // User exists: Log them in
-            $row = $check->fetch_assoc();
-            $_SESSION['user_id'] = $row['id'];
-            $_SESSION['email'] = $row['email'];
-            echo "success"; // Tell JS it worked
-        } else {
-            // New user: Create account
-            $sql = "INSERT INTO users (full_name, email, google_id) VALUES ('$g_name', '$g_email', '$g_id')";
-            if ($conn->query($sql) === TRUE) {
-                $_SESSION['user_id'] = $conn->insert_id;
-                $_SESSION['email'] = $g_email;
-                echo "success";
+                header("Location: dash.php"); // Redirect to dashboard
+                exit();
             } else {
-                echo "error";
+                $message = "<div class='error-msg'>Incorrect password!</div>";
             }
+        } else {
+            $message = "<div class='error-msg'>Email not registered!</div>";
         }
-    } else {
-        echo "invalid_token";
+
+        $stmt->close();
     }
-    exit(); // Stop script here so we don't return HTML to the AJAX call
 }
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -136,18 +113,11 @@ $conn->close();
                     <button type="submit" class="sign-in-btn">Sign In</button>
 
                     <div class="divider">
-                        <span>Or Sign In With</span>
+                        <span>Or Sign up</span>
                     </div>
 
-                    <div class="google-wrapper">
-                        <div id="customGoogleBtn" class="google-btn">
-                            <a href="https://accounts.google.com/signin/v2/identifier" target="_blank">
-                            <img src="google.png" alt="Google">
-                            </a>
-                        </div>
-                    </div>
-
-                    <p class="signup-text">Don't have an account? <a href="signup.php">Sign Up</a></p>
+                
+                    <p class="signup-link">Don't have an account? <a href="register.php">Sign Up</a></p>
                 </form>
             </div>
         </div>
@@ -159,6 +129,6 @@ $conn->close();
          data-auto_prompt="false">
     </div>
 
-    <script src="script.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>

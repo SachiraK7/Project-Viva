@@ -1,13 +1,14 @@
-document.getElementById("loginForm").addEventListener("submit", function(e) {
+document.getElementById("signupForm").addEventListener("submit", function(e) {
 
+    let name = document.querySelector("input[name='name']").value.trim();
     let email = document.querySelector("input[name='email']").value.trim();
     let password = document.getElementById("password").value;
+    let confirmPassword = document.getElementById("confirm_password").value;
 
-    // Remove previous error
     let oldError = document.querySelector(".js-error");
     if (oldError) oldError.remove();
 
-    if (email === "" || password === "") {
+    if (name === "" || email === "" || password === "" || confirmPassword === "") {
         showError("All fields are required!");
         e.preventDefault();
         return;
@@ -19,6 +20,18 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
         e.preventDefault();
         return;
     }
+
+    if (password.length < 6) {
+        showError("Password must be at least 6 characters!");
+        e.preventDefault();
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        showError("Passwords do not match!");
+        e.preventDefault();
+        return;
+    }
 });
 
 function showError(message) {
@@ -26,6 +39,6 @@ function showError(message) {
     div.className = "error-msg js-error";
     div.innerText = message;
 
-    let form = document.getElementById("loginForm");
+    let form = document.getElementById("signupForm");
     form.prepend(div);
 }
