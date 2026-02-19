@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    /* Use bg pic.png */
+    background-image: url('bg pic.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-end; /* Card on the right */
+    align-items: center;
+    padding-right: 22%;
+}
+
+.logo-container {
+    position: absolute;
+    top: 30px;
+    right: 50px;
+}
+.brand-logo {
+    width: 160px;
+    height: auto;
+}
+
+/* Card Container */
+.signup-card {
+    width: 380px;
+    background-color: transparent;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Header Section (Light Lavender) */
+.card-header {
+    background-color: #e0dcfc; 
+    padding: 20px 0;
+    text-align: center;
+}
+
+.card-header h1 {
+    font-family: 'kalam', cursive;
+    font-size: 3rem;
+    color: #000;
+    font-weight: 700;
+}
+
+/* Body Section (Main Purple) */
+.card-body {
+    background-color: #8c82fc;
+    padding: 25px 35px;
+    color: white; /* Text is black in header, but likely dark/white in body? Image shows dark labels */
+}
+
+.card-body h3 {
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: #1a1a1a; /* Dark text for "CREATE AN ACCOUNT" based on image contrast */
+}
+
+/* Form Fields */
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+    color: #1a1a1a; /* Dark labels */
+    margin-left: 10px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 25px; /* Pill shape */
+    border: none;
+    outline: none;
+    font-size: 0.85rem;
+    color: #333;
+    background: white;
+}
+
+/* Placeholder styling */
+::placeholder {
+    color: #999;
+    font-size: 0.8rem;
+}
+
+/* Sign Up Button (Black Pill) */
+.signup-btn {
+    width: 120px;
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+    background-color: black;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.signup-btn:hover {
+    background-color: #333;
+}
+
+/* Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    font-size: 0.7rem;
+    color: #333; /* Darker text for divider */
+    margin-bottom: 15px;
+}
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+.divider span {
+    padding: 0 10px;
+}
+
+/* Google Button (Black Circle) */
+.social-login {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+
+
+/* Footer Link */
+.login-link {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #1a1a1a;
+}
+
+.login-link a {
+    color: #fff; /* White link for contrast on purple bg? Or dark? */
+    /* Based on image, the background is purple, text seems dark/mixed. */
+    /* Let's make link white to pop */
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+/* Messages */
+.error-msg { background: #ff4444; color: white; padding: 5px; text-align: center; border-radius: 10px; margin-bottom: 10px; font-size: 0.8rem; }
+.success-msg { background: #00C851; color: white; padding: 5px; text-align: center; border-radius: 10px; margin-bottom: 10px; font-size: 0.8rem; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        justify-content: center;
+        padding-right: 0;
+        background-position: left;
+    }
+}
