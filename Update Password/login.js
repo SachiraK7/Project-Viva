@@ -1,13 +1,14 @@
-document.getElementById("resetForm").addEventListener("submit", function(e) {
+document.getElementById("loginForm").addEventListener("submit", function(e) {
 
     let email = document.querySelector("input[name='email']").value.trim();
+    let password = document.getElementById("password").value;
 
     // Remove previous error
     let oldError = document.querySelector(".js-error");
     if (oldError) oldError.remove();
 
-    if (email === "") {
-        showError("Email address is required!");
+    if (email === "" || password === "") {
+        showError("All fields are required!");
         e.preventDefault();
         return;
     }
@@ -22,9 +23,9 @@ document.getElementById("resetForm").addEventListener("submit", function(e) {
 
 function showError(message) {
     let div = document.createElement("div");
-    div.className = "error-text js-error";
+    div.className = "error-msg js-error";
     div.innerText = message;
 
-    let form = document.getElementById("resetForm");
+    let form = document.getElementById("loginForm");
     form.prepend(div);
 }
