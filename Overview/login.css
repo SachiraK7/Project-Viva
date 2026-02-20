@@ -1,0 +1,226 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    /* The background image that contains the left-side art */
+    background-image: url('bg pic.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-end; /* Pushes login box to the right */
+    align-items: center;
+    padding-right: 20%; /* Adjust spacing from the right edge */
+}
+
+/* Logo Top Right */
+.logo-container {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+}
+
+.brand-logo {
+    width: 150px; /* Adjust based on your logo image size */
+    height: auto;
+}
+
+/* Login Card Container */
+.login-card {
+    width: 450px;
+    background-color: transparent;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Header Section (Light Purple) */
+.card-header {
+    background-color: #dcd6f7; /* Light lavender color */
+    padding: 20px;
+    text-align: center;
+}
+
+.card-header h1 {
+    font-family: 'kalam', cursive;
+    font-size: 3rem;
+    color: #000;
+}
+
+/* Body Section (Dark Purple) */
+.card-body {
+    background-color: #8c82fc; /* Main purple color */
+    padding: 30px;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.card-body h3 {
+    font-weight: 500;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+/* Input Fields */
+.input-group {
+    background: white;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    padding: 5px 15px;
+    margin-bottom: 15px;
+}
+
+.icon-holder {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.icon-holder img {
+    width: 100%;
+    height: auto;
+    opacity: 0.7;
+}
+
+.input-group input {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 8px;
+    font-size: 0.9rem;
+    color: #000000;
+}
+
+/* Options Row */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.forgot-pass {
+    color: #000000;
+    text-decoration: none;
+    display: block;
+    margin-top: -25px;
+    text-align: right;
+}
+
+/* Sign In Button */
+.sign-in-btn {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+
+.sign-in-btn:hover {
+    background-color: #000000;
+}
+
+/* Divider */
+.divider {
+    display: flex;
+    color: #000000;
+    align-items: center;
+    margin: 10px 0 20px 0;
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+.divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+}
+
+.divider span {
+    padding: 0 10px;
+}
+
+/* Google Button */
+.google-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.google-btn img {
+    width: 35px;
+    height: 35px;
+    background: white; /* Optional white circle bg */
+    border-radius: 50%;
+}
+
+/* Footer Link */
+.signup-link {
+    font-size: 0.75rem;
+}
+
+.signup-link a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.error-text {
+    background-color: #ff4444;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+.footer-nav {
+  position: fixed;     /* keeps it in place even when scrolling */
+  bottom: 0;           /* anchors to the bottom */
+  left: 0;             /* anchors to the left */
+  margin: 0;           /* remove extra spacing */
+  padding: 10px;       /* add some breathing room */
+  background-color: #f8f8f8; /* optional: background for visibility */
+}
+.footer-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+}
+.footer-nav a {
+  text-decoration: none;
+  color: #333;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        justify-content: center;
+        padding-right: 0;
+        background-position: left; 
+    }
+}

@@ -16,8 +16,7 @@ if ($conn->connect_error) {
 $message = "";
 
 // FORM SUBMISSION LOGIC
-// 1. Fixed the action to check for 'normal_login'
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'normal_login') {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'login') {
 
     $email = trim($_POST['email']);
     $password = $_POST['password'];
@@ -35,20 +34,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->store_result();
-        
-        // Check if a row was returned before binding results
+        $stmt->bind_result($id, $full_name, $hashed_password);
+
         if ($stmt->num_rows == 1) {
-            if ($stmt->fetch() && password_verify($password, $hashed_password)) {
+            $stmt->fetch();
+            if (password_verify($password, $hashed_password)) {
                 // LOGIN SUCCESS
                 $_SESSION['user_id'] = $id;
-                
-                // 2. Fixed the session variable to match expense.php exactly
-                $_SESSION['userName'] = $full_name; 
-                
+                $_SESSION['user_name'] = $full_name;
                 $_SESSION['user_email'] = $email;
 
-                // 3. Fixed the redirect to match your actual dashboard file
-                header("Location: dashboard.php"); 
+                header("Location: dash.php"); // Redirect to dashboard
                 exit();
             } else {
                 $message = "<div class='error-msg'>Incorrect password!</div>";
@@ -121,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
                     </div>
 
                 
-                    <p class="signup-link">Don't have an account? <a href="/Registerpage/register.php">Sign Up</a></p>
+                    <p class="signup-link">Don't have an account? <a href="register.php">Sign Up</a></p>
                 </form>
             </div>
         </div>
