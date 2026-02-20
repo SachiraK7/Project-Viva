@@ -19,7 +19,8 @@
                 <li><a href="dashboard.php" class="active"><img src="dashboard.png" class="menu-icon"> Dashboard</a></li>
                 <li><a href="expense.php"><img src="expense.png" class="menu-icon"> Expense</a></li>
                 <li><a href="analytics.php"><img src="overview.png" class="menu-icon"> Overview</a></li>
-                <li><a href="settings.php"><img src = "settings.png" class="menu-icon"> Settings</a></li>
+                <li><a href="settings.php"><img src="settings.png" class="menu-icon"> Settings</a></li>
+            </ul>
         </nav>
     </div>
 
@@ -27,7 +28,7 @@
         <header>
             <div class="header-left">
                 <i class="fa-solid fa-bars hamburger"></i>
-                <h2>Dashboard</h2>
+                <h1>Dashboard</h1>
             </div>
 
             <div class="search-bar">
@@ -36,7 +37,6 @@
             </div>
 
             <div class="user-profile">
-                <span><?php echo $userName; ?></span>
                 <a href="settings.php">
                     <img src="profile.png" alt="Profile" class="avatar">
                 </a>
@@ -71,7 +71,7 @@
             <div class="card">
                 <div>
                     <div class="card-label">Total Expense</div>
-                    <div class="card-amount">$<?php echo number_format($year_expense); ?></div>
+                    <div class="card-amount">$<?php echo number_format($total_expense); ?></div>
                 </div>
                 <img src="total.png" class="card-img-icon">
             </div>

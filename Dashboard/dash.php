@@ -9,7 +9,7 @@ $pass = '';
 $today_expense = 0;
 $week_expense = 0;
 $month_expense = 0;
-$total_expense = 0;
+$total_expense = 0; 
 $expenses = [];
 $db_connected = false;
 
@@ -68,7 +68,6 @@ if ($db_connected) {
 }
 
 // --- 4. CHART DATA FETCHING ---
-$profileImage = "profile.png"; 
 $weeklyLabels = ['Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'];
 $weeklyData = [0, 0, 0, 0, 0, 0, 0]; 
 
@@ -81,7 +80,7 @@ if ($db_connected) {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $weeklyData[(int)$row['day_index']] = (float)$row['total'];
         }
-    } catch (Exception) { /* Fallback */ }
+    } catch (Exception $e) { /* Fallback */ }
 }
 
 $categoryMap = [
@@ -103,7 +102,7 @@ if ($db_connected) {
             $catData[] = (float)$row['total'];
             $catColors[] = $categoryMap[$catName] ?? '#' . substr(md5($catName), 0, 6);
         }
-    } catch (Exception) { /* Fallback */ }
+    } catch (Exception $e) { /* Fallback */ }
 }
 ?>
 
@@ -137,20 +136,19 @@ if ($db_connected) {
         <header>
             <div class="header-left">
                 <i class="fa-solid fa-bars hamburger"></i>
-                <h2>Dashboard</h2>
+                <h1>Dashboard</h1>
             </div>
 
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass" style="color: #999;"></i>
                 <input type="text" placeholder="Search">
             </div>
-           
-            <div class="user-profile">
-            <a href="settings.php">
-                <img src="profile.png" alt="Profile" class="avatar">
-            </a>
-            </div>
 
+            <div class="user-profile">
+                <a href="settings.php">
+                    <img src="profile.png" alt="Profile" class="avatar">
+                </a>
+            </div>
         </header>
 
         <div class="cards-container">
@@ -189,18 +187,16 @@ if ($db_connected) {
 
         <div class="charts-wrapper">
             <div class="chart-card">
-                <div class="chart-title" style="margin-bottom: 5px;">Weekly Report</div>
-                <div class="chart-subtitle">Expense Chart</div>
-                <div class="chart-canvas-box bar-bg">
+                <div class="chart-title">Expense Chart</div>
+                <div class="chart-canvas-box">
                     <canvas id="barChart"></canvas>
                 </div>
             </div>
 
-            <div class="chart-card pie-card">
-                <div class="chart-canvas-box" style="height: 250px; min-height: 250px;">
+            <div class="chart-card">
+                <div class="chart-canvas-box">
                     <canvas id="pieChart"></canvas>
                 </div>
-                <div id="custom-legend" class="custom-legend"></div>
             </div>
         </div>
     </div>
