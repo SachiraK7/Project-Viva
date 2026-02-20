@@ -1,0 +1,278 @@
+/* --- RESET & FONTS --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f5f0fa; /* Very light purple background */
+    height: 100vh;
+    overflow: hidden; /* Prevents double scrollbars */
+}
+
+/* --- LAYOUT --- */
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+    width: 250px;
+    background-color: #e6e0f8; /* Light lavender */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    justify-content: space-between;
+    transition: 0.3s ease;
+    z-index: 1000;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.brand-logo {
+    width: 40px;
+    height: auto;
+}
+
+.brand h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.side-nav ul, .side-footer ul {
+    list-style: none;
+}
+
+.side-nav li, .side-footer li {
+    margin-bottom: 15px;
+}
+
+.side-nav a, .side-footer a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+/* Icon Images in Sidebar */
+.side-nav a img, .side-footer a img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.side-nav a:hover, .side-footer a:hover {
+    background-color: rgba(140, 130, 252, 0.2);
+}
+
+/* Active State */
+.side-nav li.active a {
+    background-color: #dcd6f7;
+    font-weight: 600;
+}
+
+/* --- MAIN CONTENT --- */
+.main-content {
+    flex: 1;
+    padding: 20px 40px;
+    overflow-y: auto; /* Scroll only main content */
+}
+
+/* Header */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.menu-toggle {
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none; /* Hidden on desktop */
+}
+
+.header-title h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-profile span {
+    font-weight: 500;
+}
+
+.avatar img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #8c82fc;
+}
+
+/* --- STATS CARDS --- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-info h3 {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.card-info p {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.card-icon img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+/* --- CALENDAR SECTION --- */
+.calendar-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.calendar-container {
+    background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.calendar-header {
+    background-color: #581c5e; /* Dark plum header */
+    color: white;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);  	
+}
+
+.calendar-header h3 {
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.calendar-header i {
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background-color: #581c5e; /* Border color between cells */
+    gap: 1px;
+}
+
+.day-name, .date-box {
+    background-color: #cfaae0; /* Lavender cells */
+    padding: 15px;
+    min-height: 90px;
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: flex-start;
+}
+
+.day-name {
+    background-color: #581c5e;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9rem;
+    min-height: auto;
+    justify-content: center;
+}
+
+.date-box.empty {
+    background-color: #cfaae0;
+    opacity: 0.8;
+}
+
+.date-box.active-date {
+    background-color: #8c82fc; /* Highlight today's date */
+    color: white;
+    position: relative;
+    border: 2px solid white;
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .sidebar {
+        position: fixed;
+        left: -250px;
+        top: 0;
+        height: 100vh;
+        width: 250px;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+    
+    .menu-toggle { display: block; }
+
+    .date-box {
+        min-height: 50px;
+        padding: 5px;
+        font-size: 0.8rem;
+    }
+    
+    .day-name {
+        font-size: 0.7rem;
+        padding: 5px;
+    }
+}
