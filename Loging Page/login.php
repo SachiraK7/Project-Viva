@@ -37,8 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
         $stmt->bind_result($id, $full_name, $hashed_password);
 
         if ($stmt->num_rows == 1) {
-            $stmt->fetch();
-            if (password_verify($password, $hashed_password)) {
+            if ($stmt->fetch() && password_verify($password, $hashed_password)) {
                 // LOGIN SUCCESS
                 $_SESSION['user_id'] = $id;
                 $_SESSION['user_name'] = $full_name;
