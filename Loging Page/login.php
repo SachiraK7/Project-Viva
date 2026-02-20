@@ -116,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
                     </div>
 
                 
-                    <p class="signup-link">Don't have an account? <a href="register.php">Sign Up</a></p>
+                    <p class="signup-link">Don't have an account? <a href="/Registerpage/register.php">Sign Up</a></p>
                 </form>
             </div>
         </div>
