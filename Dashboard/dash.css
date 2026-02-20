@@ -30,22 +30,10 @@ body {
     flex-direction: column;
 }
 
-.brand {
-    margin-bottom: 50px;
-}
-
-.logo-img {
-    max-width: 150px; 
-    height: auto;
-}
-
-.menu ul {
-    list-style: none;
-}
-
-.menu li {
-    margin-bottom: 20px;
-}
+.brand { margin-bottom: 50px; }
+.logo-img { max-width: 150px; height: auto; }
+.menu ul { list-style: none; }
+.menu li { margin-bottom: 20px; }
 
 .menu a {
     text-decoration: none;
@@ -59,20 +47,8 @@ body {
     transition: 0.3s;
 }
 
-.menu-icon {
-    width: 24px; 
-    height: 24px;
-    object-fit: contain;
-}
-
-.menu a:hover, .menu a.active {
-    background-color: rgba(255, 255, 255, 0.6);
-    font-weight: 600;
-}
-
-.logout-section {
-    margin-top: auto;
-}
+.menu-icon { width: 24px; height: 24px; object-fit: contain; }
+.menu a:hover, .menu a.active { background-color: rgba(255, 255, 255, 0.6); font-weight: 600; }
 
 /* --- MAIN CONTENT --- */
 .main-content {
@@ -89,16 +65,8 @@ header {
     margin-bottom: 40px;
 }
 
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.hamburger {
-    font-size: 1.5rem;
-    cursor: pointer;
-}
+.header-left { display: flex; align-items: center; gap: 15px; }
+.hamburger { font-size: 1.5rem; cursor: pointer; }
 
 .search-bar {
     background: #fff;
@@ -118,12 +86,7 @@ header {
     font-size: 1rem;
 }
 
-.user-profile {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
+.user-profile { display: flex; align-items: center; gap: 15px; }
 .avatar {
     width: 45px;
     height: 45px;
@@ -132,12 +95,7 @@ header {
     transition: transform 0.2s;
     object-fit: cover;
 }
-
-.avatar:hover {
-    transform: scale(1.05);
-    border: 2px solid #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
+.avatar:hover { transform: scale(1.05); border: 2px solid #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
 
 /* CARDS */
 .cards-container {
@@ -157,35 +115,12 @@ header {
     flex-direction: column;
     justify-content: space-between;
     min-height: 140px;
+    transition: transform 0.2s;
 }
 .card:hover { transform: translateY(-2px); }
 
-.card-label {
-    font-size: 0.95rem;
-    color: #555;
-    margin-bottom: 5px;
-    font-weight: 500;
-}
-
-.card-amount {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #222;
-    margin-bottom: 10px;
-}
-
-.card-status {
-    font-size: 0.75rem;
-    color: #888;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.status-icon {
-    color: #4CAF50; 
-}
-
+.card-label { font-size: 0.95rem; color: #555; margin-bottom: 5px; font-weight: 500; }
+.card-amount { font-size: 2rem; font-weight: 700; color: #222; margin-bottom: 10px; }
 .card-img-icon {
     position: absolute;
     top: 25px;
@@ -200,7 +135,7 @@ header {
     display: grid;
     grid-template-columns: 1.8fr 1.2fr;
     gap: 30px;
-    height: 450px;
+    height: 480px;
 }
 
 .chart-card {
@@ -212,16 +147,52 @@ header {
     flex-direction: column;
 }
 
-.chart-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #344767;
-    margin-bottom: 20px;
+.chart-title { font-size: 1.1rem; font-weight: 700; color: #344767; }
+.chart-canvas-box { flex: 1; position: relative; width: 100%; min-height: 0; }
+
+/* --- NEW CHART SPECIFIC STYLES --- */
+.chart-subtitle {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+    background: #fff;
+    padding: 5px 15px;
+    display: inline-block;
+    border-radius: 8px 8px 0 0;
+    width: max-content;
 }
 
-.chart-canvas-box {
-    flex: 1;
-    position: relative;
+.bar-bg {
+    background-color: #E2E2E2;
+    padding: 20px;
+    border-radius: 0 8px 8px 8px;
+}
+
+.pie-card {
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* --- CUSTOM LEGEND STYLES --- */
+.custom-legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 30px;
+    margin-top: 30px;
     width: 100%;
-    min-height: 0; 
+    padding: 0 20px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: #444;
+}
+
+.legend-color {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
 }
