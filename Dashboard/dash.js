@@ -1,17 +1,28 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+    // --- CUSTOM PLUGIN FOR BAR CHART GREY BACKGROUND ---
+    const chartAreaBackground = {
+        id: 'chartAreaBackground',
+        beforeDraw: (chart) => {
+            const {ctx, chartArea: {top, bottom, left, right}} = chart;
+            ctx.save();
+            ctx.fillStyle = '#E2E2E2'; // Grey background from the design
+            ctx.fillRect(left, top, right - left, bottom - top);
+            ctx.restore();
+        }
+    };
+
     // --- 1. BAR CHART CONFIGURATION ---
     const ctxBar = document.getElementById('barChart').getContext('2d');
     new Chart(ctxBar, {
         type: 'bar',
         data: {
-            labels: weeklyLabels, // Passed from PHP
+            labels: weeklyLabels, 
             datasets: [{
                 label: 'Expense',
-                data: weeklyData, // Passed from PHP
-                backgroundColor: '#7F85F8', 
-                borderRadius: 5,
-                barThickness: 30
+                data: weeklyData, 
+                backgroundColor: '#8294F8',
+                barThickness: 35
             }]
         },
         options: {
@@ -20,37 +31,40 @@ document.addEventListener("DOMContentLoaded", function() {
             scales: {
                 y: {
                     beginAtZero: true,
-                    grid: { color: '#f0f0f0' },
+                    grid: { 
+                        color: '#FFFFFF', // White grid lines
+                        drawBorder: false 
+                    },
                     ticks: {
+                        stepSize: 50, // Jump by 50 dollars
                         callback: function(value) { return '$' + value; },
-                        font: { family: 'Poppins' }
+                        font: { family: 'Poppins', size: 11 }
                     }
                 },
                 x: {
                     grid: { display: false },
-                    ticks: { font: { family: 'Poppins' } }
+                    ticks: { font: { family: 'Poppins', size: 11 } }
                 }
             },
             plugins: {
                 legend: { display: false }
             }
-        }
+        },
+        plugins: [chartAreaBackground]
     });
 
     // --- 2. PIE CHART CONFIGURATION ---
     const ctxPie = document.getElementById('pieChart').getContext('2d');
-    
-    // Calculate total safely (prevent division by zero)
     const totalExpense = catData.reduce((acc, val) => Number(acc) + Number(val), 0);
 
     new Chart(ctxPie, {
         type: 'pie',
         data: {
-            labels: catLabels, // Passed from PHP
+            labels: catLabels, 
             datasets: [{
-                data: catData, // Passed from PHP
-                backgroundColor: catColors, // Passed from PHP
-                borderWidth: 0,
+                data: catData, 
+                backgroundColor: catColors, 
+                borderWidth: 0, 
                 hoverOffset: 10
             }]
         },
@@ -58,20 +72,11 @@ document.addEventListener("DOMContentLoaded", function() {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        usePointStyle: true,
-                        boxWidth: 8,
-                        padding: 15,
-                        font: { size: 10, family: 'Poppins' }
-                    }
-                },
+                legend: { display: false }, // Turned off for custom HTML legend
                 tooltip: {
                     callbacks: {
                         label: function(context) {
                             let value = context.raw;
-                            // Check if total is 0 to avoid "NaN%"
                             let percentage = totalExpense > 0 
                                 ? ((value / totalExpense) * 100).toFixed(1) + '%' 
                                 : '0%';
@@ -82,4 +87,22 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     });
+
+    // --- 3. DYNAMIC CUSTOM PIE CHART LEGEND ---
+    const legendContainer = document.getElementById('custom-legend');
+    
+    if (legendContainer) {
+        let legendHTML = '';
+        catLabels.forEach((label, index) => {
+            if (catColors[index]) { 
+                legendHTML += `
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: ${catColors[index]}; width: 14px; height: 14px; display: inline-block;"></span>
+                        <span class="legend-text" style="font-size: 11px; font-family: 'Poppins';">${label}</span>
+                    </div>
+                `;
+            }
+        });
+        legendContainer.innerHTML = legendHTML;
+    }
 });
