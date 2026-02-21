@@ -106,13 +106,6 @@ function saveModalData() {
 }
 
 /**
- * Closes the modal popup
- */
-function closeModal() {
-    document.getElementById('modal-overlay').style.display = 'none';
-}
-
-/**
  * Close modal when clicking on the dark background overlay
  */
 window.onclick = function(event) {
@@ -123,32 +116,8 @@ window.onclick = function(event) {
 }    
 
 function handleDeleteAccount() {
-    const overlay = document.getElementById('modal-overlay');
-    const modalTitle = document.getElementById('modal-title');
-    const modalBody = document.getElementById('modal-body-content');
-    const modalFooter = document.getElementById('modal-footer-buttons');
-
-    // 1. Set Title
-    modalTitle.innerText = "Delete Account";
-
-    // 2. Set Warning Content (Matches your image)
-    modalBody.innerHTML = `
-        <div class="warning-container">
-            <span class="warning-icon"><img src="image 19.png" class="warning-img" alt="Warning"></span>
-            <p class="warning-text">
-                Are you sure you want to delete this item?<br>
-                <span style="color: #666;">This action cannot be undone.</span>
-            </p>
-        </div>
-    `;
-
-    // 3. Update Buttons to "No" and "Yes"
-    modalFooter.innerHTML = `
-        <button class="btn-cancel btn-no" onclick="closeModal()">No</button>
-        <button class="btn-confirm btn-yes" onclick="processAccountDeletion()">Yes</button>
-    `;
-
-    overlay.style.display = 'flex';
+    // Shows the new warning modal we just added
+    document.getElementById('delete-modal-overlay').style.display = 'flex';
 }
 
 function processAccountDeletion() {
@@ -228,31 +197,11 @@ function saveProfilePic() {
         return;
     }
 
-    //  use FormData to send the file to PHP
-    alert("Profile picture updated locally! (You'll need a backend script to save it permanently)");
-    
-    // Update the images on the page
-    const newSrc = document.getElementById('preview').src;
-    document.querySelector('.large-avatar').src = newSrc;
-    document.querySelector('.mini-avatar').src = newSrc;
-    
-    closeModal();
-}
-
-
-
-function saveProfilePic() {
-    const fileInput = document.getElementById('profile-upload');
-    if (fileInput.files.length === 0) {
-        alert("Please select an image first.");
-        return;
-    }
-
     const formData = new FormData();
     formData.append('profile_pic', fileInput.files[0]);
 
     // Send the file to PHP using fetch
-    fetch('upload_profile_img.php', {
+    fetch('settings.php', { // <--- CHANGE THIS LINE HERE
         method: 'POST',
         body: formData
     })
@@ -277,7 +226,3 @@ function saveProfilePic() {
         alert("An error occurred during upload.");
     });
 }
-
-
-
-
