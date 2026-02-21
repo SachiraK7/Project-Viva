@@ -15,7 +15,7 @@ body {
     background-color: #F3EBF9;
     height: 100vh;
     overflow: hidden;
-    gap: 50px
+    gap: 0px
 }
 
 /* --- SIDEBAR STYLES --- */
@@ -90,9 +90,10 @@ body {
 /* --- MAIN CONTENT --- */
 .main-content {
     flex: 1;
-    padding: 10px 10px;
+    padding: 10px 40px;
     overflow-y: auto;
-    
+    width: 100%; /* Ensure it attempts to take full width */
+    box-sizing: border-box;
 }
 
 /* HEADER */
@@ -102,6 +103,7 @@ header {
     align-items: center;
     margin-bottom: 70px;
     position: relative;
+    width: 100%;
 }
 
 .header-left { display: flex; align-items: center; gap: 15px; }
