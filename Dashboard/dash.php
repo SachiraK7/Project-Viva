@@ -124,9 +124,9 @@ if ($db_connected) {
 
         <nav class="menu">
             <ul>
-                <li><a href="dashboard.php" class="active"><img src="dashboard.png" class="menu-icon"> Dashboard</a></li>
-                <li><a href="expense.php"><img src="expense.png" class="menu-icon"> Expense</a></li>
-                <li><a href="analytics.php"><img src="overview.png" class="menu-icon"> Overview</a></li>
+                <li><a href="/Dashboard/dash.php" class="active"><img src="dashboard.png" class="menu-icon"> Dashboard</a></li>
+                <li><a href="/Expenses/expense.php"><img src="expense.png" class="menu-icon"> Expense</a></li>
+                <li><a href="/Overview/overview.php"><img src="overview.png" class="menu-icon"> Overview</a></li>
                 <li><a href="/Settings/settings.php"><img src="settings.png" class="menu-icon"> Settings</a></li>
             </ul>
         </nav>
@@ -145,7 +145,7 @@ if ($db_connected) {
             </div>
 
             <div class="user-profile">
-                <a href="settings.php">
+                <a href="Settings/settings.php">
                     <img src="profile.png" alt="Profile" class="avatar">
                 </a>
             </div>

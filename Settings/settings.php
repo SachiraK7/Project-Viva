@@ -176,42 +176,24 @@ try {
     <aside class="sidebar">
    
 <a href="/Dashboard/dash.php" style="text-decoration: none; color: inherit;">
- <div class="logo-section">
-    <img src="logo 1.png" alt="Spendify" class="logo-img" >
-    <span class="logo-text">Spendify</span>
-                
-</div> </a>
-
-<nav class="nav-links">
-    <a href="/Dashboard/dash.php" class="nav-link-wrapper">
-        <div class="nav-item">
-            <img src="image 1.png" class="nav-icon"> Dashboard
-        </div>
-    </a>
-
-    <a href="/Expenses/expense.php" class="nav-link-wrapper">
-        <div class="nav-item">
-            <img src="image 2.png" class="nav-icon"> Expense
-        </div>
-    </a>
-
-    <a href="/Overview/overview.php" class="nav-link-wrapper">
-        <div class="nav-item">
-            <img src="image 18.png" class="nav-icon"> Overview
-        </div>
-    </a>
-</nav>
-
-<a href="/Settings/settings.php" class="nav-link-wrapper">
-    <div class="nav-item active settings-bottom">
-        <img src="image 4.png" class="nav-icon" > Settings
+    <div class="brand">
+        <img src="logo.png" alt="Spendify" class="logo-img">
     </div>
 </a>
+
+  <nav class="menu">
+            <ul>
+                <li><a href="/Dashboard/dash.php"><img src="dashboard.png" class="menu-icon"> Dashboard</a></li>
+                <li><a href="/Expenses/expense.php"><img src="expense.png" class="menu-icon"> Expense</a></li>
+                <li><a href="/Overview/overview.php"><img src="overview.png" class="menu-icon"> Overview</a></li>
+                <li><a href="/Settings/settings.php" class="active"><img src="settings.png" class="menu-icon"> Settings</a></li>
+            </ul>
+        </nav>
 </aside>
 
 <main class="main-content">
 <header class="top-header">
-<div class="menu-label"><img src="Margin.png" alt="Menu">Settings</div>
+<div class="menu-label"><img src="Menu.png" alt="Menu" class="top-menu-icon">Settings</div>
 <div class="profile-top">
 <img src="<?php echo $profileImg; ?>" class="mini-avatar">
 
@@ -221,9 +203,8 @@ try {
 <div class="settings-white-card">
 <section class="left-profile">
 <div class="profile-hero">
- <img src="<?php echo $profileImg; ?>" class="large-avatar" onclick="handleProfilePicChange()" style="cursor: pointer;"> 
+<img src="<?php echo $profileImg; ?>" class="large-avatar" onclick="handleProfilePicChange()" style="cursor: pointer;"> 
  
-<h1 class="display-name"><?php echo htmlspecialchars($userName); ?></h1>
 </div>
                     
 <div class="link-buttons">

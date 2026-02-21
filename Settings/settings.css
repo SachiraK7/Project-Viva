@@ -1,90 +1,197 @@
-* { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
-body, html { margin: 0; padding: 0; height: 100%; background: #decdf6; }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+:root {
+    --bg-color: #F3EBF9;
+    --sidebar-color: #E6DDF6;
+    --text-primary: #333;
+    --card-white: #FFFFFF;
+}
+
+body, html { margin: 0; padding: 0; height: 100vh; background: #F3EBF9; }
 
 .app-container { display: flex; height: 100vh; }
 
-/* Sidebar */
-.sidebar { width: 230px; padding: 30px 20px; display: flex; flex-direction: column; height: 100vh;}
-.logo-section { display: flex; align-items: center; gap: 12px; margin-bottom: 50px; background: #decdf6;}
-.logo-img { width: 32px; height: 32px; }
-.logo-text {  font-size: 22px; }
-.nav-item { padding: 12px 10px; color: #333; cursor: pointer;display: flex;align-items: center; gap: 12px; }
-.logo-text, .nav-item {
-    font-family: 'Poppins', sans-serif;
+/* Sidebar - Purple background */
+.sidebar { 
+    width: 230px; 
+    padding: 30px 10px; 
+    display: flex; 
+    flex-direction: column; 
+    height: 100vh; 
+    background: #E6DDF6 /* Solid purple for sidebar */
 }
-.nav-icon {
-    width: 20px; 
-    height: 20px;
-    object-fit: contain;}
-
-
-.nav-links {
-    display: flex;
-    flex-direction: column;
-    gap: 5px; /* Tightens the spacing between Dashboard/Expense/Overview */
+.brand {
+    margin-bottom: 50px;
+    padding-left: 10px;
+    display: flex; 
+    align-items: center;
 }
 
-.nav-link-wrapper {
-    text-decoration: none; /* Crucial: removes the default blue link underline */
-    color: inherit;
-}
-
-
-.nav-item.active {
-    font-weight: 700; /* Makes "Settings" stand out as the active page */
-}
-
-.nav-item:hover {
-    background: rgba(0, 0, 0, 0.05); /* Adds a subtle grey hover effect */
-}
-
-
-
-/* Main Wrapper */
-.main-content { flex: 1; display: flex; flex-direction: column; }
-.top-header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
-.mini-avatar { width: 35px; height: 35px; border-radius: 50%; margin-left: 10px; }
-.menu-label{font-family:'Manrope';padding: 12px 10px; color: #333; cursor: pointer;display: flex;align-items: center; gap: 10px; font-weight:bold; }
-.menu-label img {
-    width: 20px;           
-    height: 20px;
+.logo-img {
+    width: 160px;
     object-fit: contain;
+    height: auto;
+}
+.menu ul { list-style: none; padding: 0; margin: 0; }
+.menu li { margin-bottom: 20px; }
+
+.menu a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.1rem;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: 0.3s;
 }
 
-h1, h2, .section-heading {
-    font-family: 'Roboto Slab', serif;
-    font-weight: 700;
+.menu-icon { width: 24px; height: 24px; object-fit: contain; }
+.menu a:hover, .menu a.active { background-color: rgba(255, 255, 255, 0.6); font-weight: 600; }
+
+
+/* Main Wrapper - Lighter background */
+.main-content { flex: 1; display: flex; flex-direction: column; background: #F3EBF9; }
+.top-header { 
+    padding: 15px 40px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
 }
 
-body, label, input, .square-btn, .btn-delete {
-    font-family: 'Roboto Slab', sans-serif;
+.top-menu-icon {
+    width: 30px;      /* Adjust this value to make it even bigger */
+    height: auto;      /* Maintains aspect ratio so it doesn't look stretched */
+    cursor: pointer;
+    display: block;    /* Ensures it behaves correctly in the flexbox */
+    
 }
 
-/* White Layout Box */
+.menu-label {  
+    display: flex; 
+    align-items: center; 
+    gap: 19px; 
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600; /* Optional: matches the bold look in your image */
+    font-size: 29px;
+    transform: translateY(12px);
+}
+
+.mini-avatar { width: 55px; height: 55px; border-radius: 50%; }
+
+/* The Settings Card Area */
 .settings-white-card { 
     flex: 1; 
-    background: white; 
-    border-top-left-radius: 0px; 
+    margin: 20px 40px 40px 40px;
+    background: #E8DFF3; /* Slightly darker purple for the card container */
+    border-radius: 10px;
     display: flex; 
     overflow: hidden; 
 }
 
 /* Left Column */
-.left-profile { width: 45%; padding: 60px; display: flex; flex-direction: column; align-items: center; background: #F8F4FF; }
-.profile-hero { text-align: center; margin-bottom: 40px; display: flex; align-items: center; gap: 20px; }
-.large-avatar { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; }
-.display-name { font-size: 26px; font-weight: 600; margin: 0; }
+.left-profile { 
+    width: 40%; 
+    padding: 40px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+}
 
-.link-buttons { width: 100%; max-width: 260px; display: flex; flex-direction: column; gap: 12px; }
-.btn-box { background: white; border: 1px solid #ccc; padding: 10px 15px; border-radius: 4px; text-align: left; cursor: pointer; }
-.btn-red { background: #FF5C5C; color: white; border: 1px solid black; padding: 12px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 80px; }
+.profile-hero { 
+    text-align: center; 
+    margin-bottom: 40px; 
+    display: flex; 
+    flex-direction: column; /* Stacked avatar and name */
+    align-items: center; 
+    gap: 15px; 
+}
 
-/* Vertical Line */
-.v-line { width: 1.5px;height:100%; background: #000000; margin: 50px 0; align-self: center;}
+.large-avatar { 
+    width: 120px; 
+    height: 120px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    background: #ffffff; 
+}
+
+
+
+.link-buttons { width: 100%; max-width: 280px; display: flex; flex-direction: column; gap: 15px; }
+.btn-box { 
+    background: white; 
+    border: 1px solid #999; 
+    padding: 12px 15px; 
+    border-radius: 6px; 
+    text-align: left; 
+    cursor: pointer; 
+    font-family: 'Roboto Slab', serif;
+    font-size: 16px;
+}
+
+.btn-red { 
+    background: #FF5C5C; 
+    color: white; 
+    border: none; 
+    padding: 14px; 
+    border-radius: 6px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    margin-top: 40px; 
+    font-size: 16px;
+}
+
+/* Vertical Divider */
+.v-line { 
+    width: 1px; 
+    background: #999; 
+    margin: 40px 0; 
+}
 
 /* Right Column */
-.right-form { width: 55%; padding: 80px; }
-.group-title { font-size: 20px; margin-bottom: 30px; }
+.right-form { width: 60%; padding: 60px; }
+.group-title { 
+    font-family: 'Roboto Slab', serif; 
+    font-size: 22px; 
+    margin-bottom: 25px; 
+}
+
+.form-group { margin-bottom: 30px; }
+.form-group label { 
+    display: block; 
+    font-family: 'Roboto Slab', serif;
+    color: #333; 
+    font-size: 16px; 
+    margin-bottom: 10px; 
+}
+
+.custom-input { 
+    border: 1px solid #999; 
+    border-radius: 6px; 
+    display: flex; 
+    align-items: center; 
+    padding: 12px 15px; 
+    background: white; 
+}
+
+.custom-input input { 
+    border: none; 
+    outline: none; 
+    flex: 1; 
+    font-size: 15px; 
+    background: transparent;
+}
+
+.edit-link { 
+    color: #8A56E2; 
+    font-size: 14px; 
+    cursor: pointer; 
+    font-weight: 500; 
+}
+
 .security-gap { margin-top: 50px; }
 
 .form-group { margin-bottom: 25px; }
