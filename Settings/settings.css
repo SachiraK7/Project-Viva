@@ -4,11 +4,11 @@ body, html { margin: 0; padding: 0; height: 100%; background: #decdf6; }
 .app-container { display: flex; height: 100vh; }
 
 /* Sidebar */
-.sidebar { width: 230px; padding: 30px 20px; display: flex; flex-direction: column; }
+.sidebar { width: 230px; padding: 30px 20px; display: flex; flex-direction: column; height: 100vh;}
 .logo-section { display: flex; align-items: center; gap: 12px; margin-bottom: 50px; background: #decdf6;}
 .logo-img { width: 32px; height: 32px; }
 .logo-text {  font-size: 22px; }
-.nav-item { padding: 12px 10px; color: #333; cursor: pointer;display: flex;align-items: center; gap: 10px; }
+.nav-item { padding: 12px 10px; color: #333; cursor: pointer;display: flex;align-items: center; gap: 12px; }
 .logo-text, .nav-item {
     font-family: 'Poppins', sans-serif;
 }
@@ -16,7 +16,35 @@ body, html { margin: 0; padding: 0; height: 100%; background: #decdf6; }
     width: 20px; 
     height: 20px;
     object-fit: contain;}
-.settings-nav { margin-top: auto;display: flex; align-items: center; gap: 10px;  }
+
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Tightens the spacing between Dashboard/Expense/Overview */
+}
+
+.nav-link-wrapper {
+    text-decoration: none; /* Crucial: removes the default blue link underline */
+    color: inherit;
+}
+
+.settings-bottom-wrapper {
+    margin-top: auto; 
+    text-decoration: none;
+    color: inherit;
+    padding-bottom: 20px; /* Optional: adds a little breathing room from the bottom edge */
+}
+
+.nav-item.active {
+    font-weight: 700; /* Makes "Settings" stand out as the active page */
+}
+
+.nav-item:hover {
+    background: rgba(0, 0, 0, 0.05); /* Adds a subtle grey hover effect */
+}
+
+
 
 /* Main Wrapper */
 .main-content { flex: 1; display: flex; flex-direction: column; }
@@ -72,3 +100,86 @@ body, label, input, .square-btn, .btn-delete {
 .edit-link { color: #8A56E2; font-size: 13px; cursor: pointer; white-space: nowrap; font-weight: 500; }
 
 
+/* Dark background that covers the whole screen */
+.modal-overlay {
+    display: none; /* JS toggles this to 'flex' */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Dim the background */
+    z-index: 9999; /* Stay on top of everything */
+    justify-content: center;
+    align-items: center;
+}
+
+/* The white popup box */
+.modal-box {
+    background: #fff;
+    width: 400px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: left;
+}
+
+/* Header and Close button */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.close-x {
+    cursor: pointer;
+    font-size: 20px;
+    color: #888;
+}
+
+/* Inputs and Labels */
+.modal-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.modal-field {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box; /* Prevents input from overflowing */
+}
+
+/* Black pill-shaped buttons */
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.btn-cancel, .btn-confirm {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 25px; /* Pill shape */
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-cancel:hover, .btn-confirm:hover {
+    opacity: 0.8;
+}

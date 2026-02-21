@@ -42,12 +42,6 @@ try {
     <span class="logo-text">Spendify</span>
                 
 </div>
-<nav>
-    <div class="nav-item"><img src="image 1.png" alt="Dashboard" class="nav-icon"> Dashboard</div>
-    <div class="nav-item"><img src="image 2.png" alt="Expense" class="nav-icon">Expense</div>
-    <div class="nav-item"><img src="image 18.png" alt="Overview" class="nav-icon">Overview</div>
-</nav>
-
 
 
 <nav class="nav-links">
@@ -70,17 +64,17 @@ try {
     </a>
 </nav>
 
-<a href="settings.php" class="nav-link-wrapper">
+<a href="settings.php" class="nav-link-wrapper settings-bottom-wrapper">
     <div class="nav-item active settings-bottom">
-        <img src="image 4.png" class="nav-icon"> Settings
+        <img src="image 4.png" class="nav-icon" > Settings
     </div>
 </a>
+</aside>
 
 
 
 
-<div class="nav-item active settings-nav"><img src="image 4.png" alt="Settings" class="nav-icon"> Settings</div>
- </aside>
+
 
 <main class="main-content">
 <header class="top-header">
