@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
                         <input type="email" name="email" placeholder='eg: "simon@company.com"' required>
                     </div>
 
-                    <button type="submit" class="sign-in-btn">Reset Password</button>
+                    <button type="submit" class="sign-in-btn">Reset Password<a href="/Update Password/update.php"></a></button>
 
                     <div class="divider">
                         <span>Or Go Back</span>
