@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #f5f0fa; /* Very light purple background */
+    background-color: #F3EBF9; /* Very light purple background */
     height: 100vh;
     overflow: hidden; /* Prevents double scrollbars */
 }
@@ -21,25 +21,24 @@ body {
 
 /* --- SIDEBAR --- */
 .sidebar {
-    width: 250px;
-    background-color: #e6e0f8; /* Light lavender */
+    width: 260px;
+    background-color: #E6DDF6;
+    padding: 30px 25px;
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    justify-content: space-between;
-    transition: 0.3s ease;
-    z-index: 1000;
+    height: 100vh;
 }
 
 .brand {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    padding-left: 10px;
 }
 
 .brand-logo {
-    width: 40px;
+    width: 55px;
     height: auto;
 }
 
@@ -48,24 +47,31 @@ body {
     font-weight: 600;
 }
 
+.logo-img {
+    width: 160px;
+    object-fit: contain;
+    height: auto;
+}
+
 .side-nav ul, .side-footer ul {
     list-style: none;
 }
 
 .side-nav li, .side-footer li {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .side-nav a, .side-footer a {
     text-decoration: none;
     color: #333;
-    font-size: 1rem;
+    font-size: 1.1rem;
     display: flex;
     align-items: center;
     gap: 15px;
-    padding: 12px;
-    border-radius: 12px;
+    padding: 10px;
+    border-radius: 10px;
     transition: 0.3s;
+    margin-top: auto;
 }
 
 /* Icon Images in Sidebar */
@@ -81,14 +87,14 @@ body {
 
 /* Active State */
 .side-nav li.active a {
-    background-color: #dcd6f7;
+    background-color: rgba(255, 255, 255, 0.6); 
     font-weight: 600;
 }
 
 /* --- MAIN CONTENT --- */
 .main-content {
     flex: 1;
-    padding: 20px 40px;
+    padding: 30px 50px;
     overflow-y: auto; /* Scroll only main content */
 }
 
@@ -97,7 +103,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 70px;
+    position: relative;
 }
 
 .header-title {
@@ -113,26 +120,50 @@ body {
 }
 
 .header-title h1 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 700;
 }
 
-.user-profile {
+.search-bar {
+    background: #fff;
+    padding: 12px 20px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    width: 350px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.user-profile span {
-    font-weight: 500;
+.search-bar input {
+    border: none;
+    outline: none;
+    margin-left: 10px;
+    width: 100%;
+    font-size: 1rem;
 }
 
-.avatar img {
+.user-profile { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+}
+
+.avatar {
     width: 45px;
     height: 45px;
     border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
     object-fit: cover;
-    border: 2px solid #8c82fc;
+}
+
+.avatar:hover { 
+    transform: scale(1.05); 
+    border: 2px solid #fff; 
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
 }
 
 /* --- STATS CARDS --- */
@@ -147,15 +178,19 @@ body {
     background-color: white;
     padding: 25px;
     border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.card:hover { 
+    transform: translateY(-2px); 
+}
+
 .card-info h3 {
     font-size: 0.9rem;
-    color: #666;
+    color: #555;
     margin-bottom: 5px;
 }
 
@@ -171,6 +206,7 @@ body {
 }
 
 /* --- CALENDAR SECTION --- */
+
 .calendar-section h2 {
     font-size: 1.5rem;
     margin-bottom: 15px;
@@ -182,6 +218,11 @@ body {
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     border: 1px solid #e0e0e0;
+
+    border-left: 1px solid #581c5e;
+    border-right: 1px solid #581c5e;
+    border-bottom: 1px solid #581c5e;
+    box-sizing: border-box;
 }
 
 .calendar-header {
@@ -204,36 +245,81 @@ body {
     font-size: 1.2rem;
 }
 
+/* --- UPDATED CALENDAR GRID --- */
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    background-color: #581c5e; /* Border color between cells */
-    gap: 1px;
+    background-color: transparent; /* Changed from #581c5e */
+    /* Add border to top and left of the whole grid */
+    border-right: 1px solid #581c5e;
+    border-bottom: 1px solid #581c5e;
+    gap: 0; /* Changed from 1px to 0 for better control */
 }
 
 .day-name, .date-box {
-    background-color: #cfaae0; /* Lavender cells */
-    padding: 15px;
-    min-height: 90px;
-    color: white;
+    background-color: #cfaae0;
+    color: #ffffff;
     font-weight: 600;
+    padding: 15px;
+    min-height: 100px;
     display: flex;
     align-items: flex-start;
+    /* Create the grid lines using borders */
+    border-top: 1px solid #581c5e;
+    border-left: 1px solid #581c5e;
+    box-sizing: border-box; /* Crucial for keeping borders inside the width */
 }
 
 .day-name {
     background-color: #581c5e;
     color: white;
-    text-align: center;
-    padding: 10px;
-    font-size: 0.9rem;
     min-height: auto;
     justify-content: center;
+    padding: 10px;
+}
+
+
+.date-box.empty {
+    /* A darker, muted lavender to differentiate from active days */
+    background-color: #d1b9e3; 
+    
+    /* Optional: Adding a subtle diagonal stripe pattern */
+    background-image:协议 linear-gradient(45deg, 
+        rgba(255, 255, 255, 0.1) 25%, 
+        transparent 25%, 
+        transparent 50%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        rgba(255, 255, 255, 0.1) 75%, 
+        transparent 75%, 
+        transparent);
+    background-size: 10px 10px;
+    
+    /* Lower opacity so the numbers/content of the month stand out more */
+    opacity: 0.7;
+    cursor: default;
+}
+
+.date-box.active-date {
+    background-color: #8c82fc !important;
+    color: white;
+    /* Maintain borders even when active */
+    border-top: 1px solid #581c5e;
+    border-left: 1px solid #581c5e;
+}
+
+/* Hover effect fix */
+.date-box:hover:not(.empty) {
+    background-color: #b98fd1; 
+    cursor: pointer;
+}
+
+.date-box.active-date {
+    background-color: #99669c !important; /* The blue highlight in your image */
+    color: white;
 }
 
 .date-box.empty {
-    background-color: #cfaae0;
-    opacity: 0.8;
+    background-color: #dfc2ed; /* Slightly darker for non-month days */
 }
 
 .date-box.active-date {
@@ -263,7 +349,9 @@ body {
         left: 0;
     }
     
-    .menu-toggle { display: block; }
+    .menu-toggle { 
+        display: block; 
+    }
 
     .date-box {
         min-height: 50px;

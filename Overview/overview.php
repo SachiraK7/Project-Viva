@@ -28,10 +28,10 @@
         
         <aside class="sidebar">
             <div class="brand">
-                <img src="Logo.png" alt="Spendify Logo" class="brand-logo">
-                <h2>Spendify</h2>
+            <a href="dashboard.php" style="text-decoration: none; display: flex; align-items: center; color: inherit;">
+                 <img src="logo.png" alt="Spendify" class="logo-img" onerror="this.style.display='none'; this.parentNode.innerHTML='<h2 style=\'color:#4A3B80;\'><i class=\'fa-solid fa-wallet\'></i> Spendify</h2>'">
+            </a>
             </div>
-
             <nav class="side-nav">
                 <ul>
                     <li><a href="dashboard.php">
@@ -50,11 +50,8 @@
                 <ul>
                     <li><a href="settings.php">
                         <img src="settings.png" alt="Settings"> Settings
-                    </a></li>
-                    
-                    <li><a href="logout.php">
-                        <img src="logout.png" alt="Logout"> Logout
-                    </a></li>
+                        </a>
+                    </li>
                     
                 </ul>
             </div>
@@ -64,15 +61,20 @@
             
             <header class="top-header">
                 <div class="header-title">
-                    <img src="Menu.png" class="menu-toggle" alt="Menu" style="width: 30px; cursor: pointer;">
+                    <img src="Menu.png" alt="Menu" style="width: 30px; cursor: pointer;">
                     <h1>Overview</h1>
                 </div>
-                <div class="user-profile">
-                    <span><?php echo isset($_SESSION['email']) ? $_SESSION['email'] : 'User'; ?></span>
-                    <div class="avatar">
-                        <img src="profile.png" alt="User">
-                    </div>
+
+                <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass" style="color: #999;"></i>
+                <input type="text" placeholder="Search">
                 </div>
+
+                <div class="user-profile">
+                <a href="settings.php">
+                    <img src="profile.png" alt="Profile" class="avatar">
+                </a>
+            </div>
             </header>
 
             <section class="stats-grid">
@@ -102,7 +104,7 @@
                         <p>233,000</p>
                     </div>
                     <div class="card-icon">
-                        <img src="expense.png" alt="Expense">
+                        <img src="total expense.png" alt="Expense">
                     </div>
                 </div>
 
@@ -127,9 +129,10 @@
                     </div>
                     
                     <div class="calendar-grid">
-                        </div>
+                    </div>
                 </div>
             </section>
+
 
         </main>
     </div>

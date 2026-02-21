@@ -135,7 +135,7 @@ if ($db_connected) {
     <div class="main-content">
         <header>
             <div class="header-left">
-                <i class="fa-solid fa-bars hamburger"></i>
+                <img src="Menu.png" alt="Menu" style="width: 30px; cursor: pointer;">
                 <h1>Dashboard</h1>
             </div>
 
