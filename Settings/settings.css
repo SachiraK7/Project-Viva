@@ -29,12 +29,6 @@ body, html { margin: 0; padding: 0; height: 100%; background: #decdf6; }
     color: inherit;
 }
 
-.settings-bottom-wrapper {
-    margin-top: auto; 
-    text-decoration: none;
-    color: inherit;
-    padding-bottom: 20px; /* Optional: adds a little breathing room from the bottom edge */
-}
 
 .nav-item.active {
     font-weight: 700; /* Makes "Settings" stand out as the active page */
@@ -182,4 +176,75 @@ body, label, input, .square-btn, .btn-delete {
 
 .btn-cancel:hover, .btn-confirm:hover {
     opacity: 0.8;
+}
+
+/* Specific styling for the Delete Modal */
+.warning-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.warning-icon {
+    color: #FF5C5C;
+    font-size: 24px;
+}
+
+.warning-img {
+    width: 40.5px; /* Adjust size as needed */
+    height: auto;
+}
+
+.warning-text {
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.4;
+}
+
+/* Button variants for the delete popup */
+.btn-no {
+    background: #000 !important; /* Matches 'No' in your image */
+    color: white;
+}
+
+.btn-yes {
+    background: #FF5C5C !important; /* Matches 'Yes' in your image */
+    color: white;
+}
+
+/* Profile Picture Upload Styling */
+.upload-container {
+    text-align: center;
+    padding: 10px;
+}
+
+.modal-preview-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 2px solid #8A56E2;
+}
+
+.file-input-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #f0f0f0;
+    border: 1px dashed #8A56E2;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.file-input-label:hover {
+    background: #e8e0f5;
+}
+
+/* Hide the actual ugly browser input */
+#profile-upload {
+    display: none;
 }

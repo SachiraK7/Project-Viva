@@ -120,43 +120,50 @@ window.onclick = function(event) {
     if (event.target == modal) {
         closeModal();
     }
+}    
 
 function handleDeleteAccount() {
-    // Show the modal overlay
     const overlay = document.getElementById('modal-overlay');
-    overlay.style.display = 'flex';
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body-content');
+    const modalFooter = document.getElementById('modal-footer-buttons');
 
-    // Update the title and content
-    document.getElementById('modal-title').innerText = "Delete Account";
-    
-    // Hide standard input fields
-    document.getElementById('single-field-container').style.display = 'none';
-    document.getElementById('password-fields-container').style.display = 'none';
+    // 1. Set Title
+    modalTitle.innerText = "Delete Account";
 
-    // Add a warning message inside the modal body
-    let modalBody = document.querySelector('.modal-body');
+    // 2. Set Warning Content (Matches your image)
     modalBody.innerHTML = `
-        <p style="color: #555; font-family: 'Manrope'; line-height: 1.5;">
-            Are you sure you want to delete your account? This action is <strong>permanent</strong> and all your data will be lost.
-        </p>
+        <div class="warning-container">
+            <span class="warning-icon"><img src="image 19.png" class="warning-img" alt="Warning"></span>
+            <p class="warning-text">
+                Are you sure you want to delete this item?<br>
+                <span style="color: #666;">This action cannot be undone.</span>
+            </p>
+        </div>
     `;
 
-    // Change the Confirm button color to red for safety
-    const confirmBtn = document.querySelector('.btn-confirm');
-    confirmBtn.innerText = "Delete Permanently";
-    confirmBtn.style.background = "#FF5C5C";
-    
-    // Update onclick to handle the actual deletion logic
-    confirmBtn.onclick = function() {
-        window.location.href = 'delete_process.php'; // Point to your deletion script
-    };
+    // 3. Update Buttons to "No" and "Yes"
+    modalFooter.innerHTML = `
+        <button class="btn-cancel btn-no" onclick="closeModal()">No</button>
+        <button class="btn-confirm btn-yes" onclick="processAccountDeletion()">Yes</button>
+    `;
+
+    overlay.style.display = 'flex';
+}
+
+function processAccountDeletion() {
+   
+    window.location.href = 'delete_process.php'; 
+}
 
 function closeModal() {
     const overlay = document.getElementById('modal-overlay');
     overlay.style.display = 'none';
     
-    // Reset the modal body so delete warnings disappear
-    let modalBody = document.querySelector('.modal-body');
+    // Reset Modal for Name/Email/Password usage
+    const modalFooter = document.getElementById('modal-footer-buttons');
+    const modalBody = document.getElementById('modal-body-content');
+
     modalBody.innerHTML = `
         <div id="single-field-container">
             <input type="text" id="modal-input" class="modal-field">
@@ -169,16 +176,108 @@ function closeModal() {
         </div>
     `;
 
-    // Reset button color back to black
-    const confirmBtn = document.querySelector('.btn-confirm');
-    confirmBtn.style.background = "#000";
-    confirmBtn.innerText = "Confirm";
+    modalFooter.innerHTML = `
+        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn-confirm" onclick="saveModalData()">Confirm</button>
+    `;
+}
+
+function handleProfilePicChange() {
+    const overlay = document.getElementById('modal-overlay');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body-content');
+    const modalFooter = document.getElementById('modal-footer-buttons');
+
+    modalTitle.innerText = "Change Profile Picture";
+
+    // Create the upload UI
+    modalBody.innerHTML = `
+        <div class="upload-container">
+            <img src="image 10.png" class="modal-preview-img" id="preview">
+            <br>
+            <label for="profile-upload" class="file-input-label">
+                Click to select new image
+            </label>
+            <input type="file" id="profile-upload" accept="image/*" onchange="previewImage(event)">
+        </div>
+    `;
+
+    // Buttons for Saving
+    modalFooter.innerHTML = `
+        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn-confirm" style="background: #8A56E2;" onclick="saveProfilePic()">Save Picture</button>
+    `;
+
+    overlay.style.display = 'flex';
+}
+
+// Function to preview the image before uploading
+function previewImage(event) {
+    const reader = new FileReader();
+    reader.onload = function() {
+        const output = document.getElementById('preview');
+        output.src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+function saveProfilePic() {
+    const fileInput = document.getElementById('profile-upload');
+    if (fileInput.files.length === 0) {
+        alert("Please select an image first.");
+        return;
+    }
+
+    //  use FormData to send the file to PHP
+    alert("Profile picture updated locally! (You'll need a backend script to save it permanently)");
+    
+    // Update the images on the page
+    const newSrc = document.getElementById('preview').src;
+    document.querySelector('.large-avatar').src = newSrc;
+    document.querySelector('.mini-avatar').src = newSrc;
+    
+    closeModal();
 }
 
 
+
+function saveProfilePic() {
+    const fileInput = document.getElementById('profile-upload');
+    if (fileInput.files.length === 0) {
+        alert("Please select an image first.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('profile_pic', fileInput.files[0]);
+
+    // Send the file to PHP using fetch
+    fetch('upload_profile_img.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        const parts = data.split('|');
+        if (parts[0] === "success") {
+            const newImagePath = parts[1];
+            
+            // Update UI images
+            document.querySelector('.large-avatar').src = newImagePath;
+            document.querySelector('.mini-avatar').src = newImagePath;
+            
+            closeModal();
+            alert("Profile picture updated successfully!");
+        } else {
+            alert("Error: " + parts[1]);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("An error occurred during upload.");
+    });
 }
 
 
 
 
-};

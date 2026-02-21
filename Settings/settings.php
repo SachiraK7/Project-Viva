@@ -7,13 +7,16 @@ $password = "";
 // Default fallback values
 $userName = "Simon Riley";
 $userEmail = "simon@company.com";
+$profileImg = "image 10.png"; // Default fallback image
+
+
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db_name", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // Fetching user 
-    $stmt = $pdo->prepare("SELECT name, email FROM users LIMIT 1");
+    $stmt = $pdo->prepare("SELECT name, email,profile_img FROM users LIMIT 1");
     $stmt->execute();
     $db_user = $stmt->fetch(PDO::FETCH_ASSOC);
     
@@ -21,6 +24,10 @@ try {
         $userName = $db_user['name']; // Your specific column name
         $userEmail = $db_user['email'];
     }
+    // NEW LOGIC: If a profile image exists in DB, use it. Otherwise, stay with fallback.
+        if (!empty($db_user['profile_img'])) {
+            $profileImg = $db_user['profile_img'];
+        }
 } catch(PDOException $e) {
     // Silently handle error to keep the UI clean
 }
@@ -67,31 +74,28 @@ try {
     </a>
 </nav>
 
-<a href="settings.php" class="nav-link-wrapper settings-bottom-wrapper">
+<a href="settings.php" class="nav-link-wrapper">
     <div class="nav-item active settings-bottom">
         <img src="image 4.png" class="nav-icon" > Settings
     </div>
 </a>
 </aside>
 
-
-
-
-
-
 <main class="main-content">
 <header class="top-header">
 <div class="menu-label"><img src="Margin.png" alt="Menu">Settings</div>
 <div class="profile-top">
+<img src="<?php echo $profileImg; ?>" class="mini-avatar">
 
-<img src="image 10.png" class="mini-avatar">
 </div>
 </header>
 
 <div class="settings-white-card">
 <section class="left-profile">
 <div class="profile-hero">
-<img src="image 10.png" class="large-avatar">
+ <img src="<?php echo $profileImg; ?>" class="large-avatar" onclick="handleProfilePicChange()" style="cursor: pointer;"> 
+ 
+
 <h1 class="display-name"><?php echo htmlspecialchars($userName); ?></h1>
 </div>
                     
@@ -144,32 +148,34 @@ try {
 </main>
 </div>
 
+
 <div id="modal-overlay" class="modal-overlay" style="display: none;">
-    <div class="modal-box">
-    <div class="modal-header">
-    <h3 id="modal-title">Change Name</h3>
-    <span class="close-x" onclick="closeModal()">&times;</span>
-    </div>
+<div class="modal-box">
+<div class="modal-header">
+   <h3 id="modal-title">Change Name</h3>
+   <span class="close-x" onclick="closeModal()">&times;</span>
+</div>
         
-<div class="modal-body">
-    <div id="single-field-container">
-    <input type="text" id="modal-input" class="modal-field">
+<div class="modal-body" id="modal-body-content">
+<div id="single-field-container">
+<input type="text" id="modal-input" class="modal-field">
 </div>
 
- <div id="password-fields-container" style="display: none;">
-    <label class="modal-label">New Password</label>
-    <input type="password" id="new-password" class="modal-field">
-    <label class="modal-label">Confirm Password</label>
-    <input type="password" id="confirm-password" class="modal-field">
+<div id="password-fields-container" style="display: none;">
+<label class="modal-label">New Password</label>
+<input type="password" id="new-password" class="modal-field">
+<label class="modal-label">Confirm Password</label>
+<input type="password" id="confirm-password" class="modal-field">
 </div>
 </div>
 
- <div class="modal-footer">
-    <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-    <button class="btn-confirm" onclick="saveModalData()">Confirm</button>
+<div class="modal-footer" id="modal-footer-buttons">
+<button class="btn-cancel" id="cancel-btn" onclick="closeModal()">Cancel</button>
+<button class="btn-confirm" id="confirm-btn" onclick="saveModalData()">Confirm</button>
 </div>
 </div>
 </div>
+
 
 <script src="settings.js"></script>
 </body>
