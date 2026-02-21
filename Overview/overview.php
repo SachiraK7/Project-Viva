@@ -51,11 +51,6 @@
                     <li><a href="settings.php">
                         <img src="settings.png" alt="Settings"> Settings
                     </a></li>
-                    
-                    <li><a href="logout.php">
-                        <img src="logout.png" alt="Logout"> Logout
-                    </a></li>
-                    
                 </ul>
             </div>
         </aside>
@@ -68,7 +63,6 @@
                     <h1>Overview</h1>
                 </div>
                 <div class="user-profile">
-                    <span><?php echo isset($_SESSION['email']) ? $_SESSION['email'] : 'User'; ?></span>
                     <div class="avatar">
                         <img src="profile.png" alt="User">
                     </div>
