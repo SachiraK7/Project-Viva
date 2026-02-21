@@ -123,32 +123,8 @@ window.onclick = function(event) {
 }    
 
 function handleDeleteAccount() {
-    const overlay = document.getElementById('modal-overlay');
-    const modalTitle = document.getElementById('modal-title');
-    const modalBody = document.getElementById('modal-body-content');
-    const modalFooter = document.getElementById('modal-footer-buttons');
-
-    // 1. Set Title
-    modalTitle.innerText = "Delete Account";
-
-    // 2. Set Warning Content (Matches your image)
-    modalBody.innerHTML = `
-        <div class="warning-container">
-            <span class="warning-icon"><img src="image 19.png" class="warning-img" alt="Warning"></span>
-            <p class="warning-text">
-                Are you sure you want to delete this item?<br>
-                <span style="color: #666;">This action cannot be undone.</span>
-            </p>
-        </div>
-    `;
-
-    // 3. Update Buttons to "No" and "Yes"
-    modalFooter.innerHTML = `
-        <button class="btn-cancel btn-no" onclick="closeModal()">No</button>
-        <button class="btn-confirm btn-yes" onclick="processAccountDeletion()">Yes</button>
-    `;
-
-    overlay.style.display = 'flex';
+    // Shows the new warning modal we just added
+    document.getElementById('delete-modal-overlay').style.display = 'flex';
 }
 
 function processAccountDeletion() {
@@ -190,10 +166,17 @@ function handleProfilePicChange() {
 
     modalTitle.innerText = "Change Profile Picture";
 
-    // Create the upload UI
+    // Grab the current profile picture source so the modal shows the active picture
+    const currentImgSrc = document.querySelector('.large-avatar').src;
+
+    // Create the upload UI + The new absolute positioned Delete Button
     modalBody.innerHTML = `
-        <div class="upload-container">
-            <img src="image 10.png" class="modal-preview-img" id="preview">
+        <div class="upload-container" style="position: relative; display: inline-block;">
+            <img src="${currentImgSrc}" class="modal-preview-img" id="preview">
+            
+            <img src="delete.png" alt="Delete" onclick="deleteProfilePic()" 
+                 style="position: absolute; top: -5px; right: -25px; cursor: pointer; width: 30px; height: 30px; background: white; border-radius: 50%; padding: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                 
             <br>
             <label for="profile-upload" class="file-input-label">
                 Click to select new image
@@ -205,10 +188,44 @@ function handleProfilePicChange() {
     // Buttons for Saving
     modalFooter.innerHTML = `
         <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-        <button class="btn-confirm" style="background: #8A56E2;" onclick="saveProfilePic()">Save Picture</button>
+        <button class="btn-confirm" style="background: #000000;" onclick="saveProfilePic()">Save Picture</button>
     `;
 
     overlay.style.display = 'flex';
+}
+
+// NEW: Function to handle the deletion logic via fetch
+function deleteProfilePic() {
+    if (confirm("Are you sure you want to remove your profile picture?")) {
+        
+        const formData = new FormData();
+        formData.append('action', 'delete_profile_pic');
+
+        fetch('settings.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            const parts = data.split('|');
+            if (parts[0] === "success") {
+                const defaultImagePath = parts[1]; // This will be "image 10.png"
+                
+                // Instantly update UI images to default
+                document.querySelector('.large-avatar').src = defaultImagePath;
+                document.querySelector('.mini-avatar').src = defaultImagePath;
+                
+                closeModal();
+                alert("Profile picture removed successfully!");
+            } else {
+                alert("Error: " + parts[1]);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("An error occurred while removing the image.");
+        });
+    }
 }
 
 // Function to preview the image before uploading
@@ -228,31 +245,11 @@ function saveProfilePic() {
         return;
     }
 
-    //  use FormData to send the file to PHP
-    alert("Profile picture updated locally! (You'll need a backend script to save it permanently)");
-    
-    // Update the images on the page
-    const newSrc = document.getElementById('preview').src;
-    document.querySelector('.large-avatar').src = newSrc;
-    document.querySelector('.mini-avatar').src = newSrc;
-    
-    closeModal();
-}
-
-
-
-function saveProfilePic() {
-    const fileInput = document.getElementById('profile-upload');
-    if (fileInput.files.length === 0) {
-        alert("Please select an image first.");
-        return;
-    }
-
     const formData = new FormData();
     formData.append('profile_pic', fileInput.files[0]);
 
     // Send the file to PHP using fetch
-    fetch('upload_profile_img.php', {
+    fetch('settings.php', { // <--- CHANGE THIS LINE HERE
         method: 'POST',
         body: formData
     })
@@ -277,7 +274,3 @@ function saveProfilePic() {
         alert("An error occurred during upload.");
     });
 }
-
-
-
-

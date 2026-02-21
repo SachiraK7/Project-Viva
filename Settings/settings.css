@@ -115,15 +115,16 @@ body, label, input, .square-btn, .btn-delete {
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    text-align: left;
+    text-align: center; /* Center-aligns inner elements */
 }
 
 /* Header and Close button */
 .modal-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Centers the title perfectly */
     align-items: center;
     margin-bottom: 20px;
+    position: relative; /* Allows absolute positioning for the close button */
 }
 
 .modal-header h3 {
@@ -136,6 +137,8 @@ body, label, input, .square-btn, .btn-delete {
     cursor: pointer;
     font-size: 20px;
     color: #888;
+    position: absolute; /* Pins close button to the right */
+    right: 0;
 }
 
 /* Inputs and Labels */
@@ -145,6 +148,7 @@ body, label, input, .square-btn, .btn-delete {
     font-weight: 600;
     margin-bottom: 8px;
     color: #333;
+    text-align: center; /* Center aligns the password labels */
 }
 
 .modal-field {
@@ -154,6 +158,7 @@ body, label, input, .square-btn, .btn-delete {
     border: 1px solid #ddd;
     border-radius: 6px;
     box-sizing: border-box; /* Prevents input from overflowing */
+    text-align: center; /* Optional: Centers the text typed into the field */
 }
 
 /* Black pill-shaped buttons */
@@ -181,9 +186,12 @@ body, label, input, .square-btn, .btn-delete {
 /* Specific styling for the Delete Modal */
 .warning-container {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center; 
+    flex-direction: column; /* Stacks the warning icon and text centrally */
     gap: 15px;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .warning-icon {
@@ -201,6 +209,7 @@ body, label, input, .square-btn, .btn-delete {
     font-size: 14px;
     color: #444;
     line-height: 1.4;
+    text-align: center;
 }
 
 /* Button variants for the delete popup */
@@ -247,4 +256,17 @@ body, label, input, .square-btn, .btn-delete {
 /* Hide the actual ugly browser input */
 #profile-upload {
     display: none;
+}
+
+/* --- OVERRIDES FOR INLINE HTML STYLES --- */
+/* Forces centering on the Delete account popup if inline HTML styles try to left-align it */
+.modal-body[style*="text-align: left"],
+.modal-body div[style*="text-align: left"] {
+    text-align: center !important;
+}
+
+.modal-body div[style*="display: flex"] {
+    justify-content: center !important;
+    flex-direction: column !important; /* Forces the red warning icon above the text */
+    text-align: center !important;
 }
