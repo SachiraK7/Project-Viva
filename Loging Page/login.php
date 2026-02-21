@@ -16,7 +16,6 @@ if ($conn->connect_error) {
 $message = "";
 
 // FORM SUBMISSION LOGIC
-// 1. Fixed the action to check for 'normal_login'
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'normal_login') {
 
     $email = trim($_POST['email']);
@@ -38,17 +37,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
         
         // Check if a row was returned before binding results
         if ($stmt->num_rows == 1) {
+            // FIXED: Bind the results to variables before fetching
+            $stmt->bind_result($id, $full_name, $hashed_password);
+            
             if ($stmt->fetch() && password_verify($password, $hashed_password)) {
                 // LOGIN SUCCESS
                 $_SESSION['user_id'] = $id;
-                
-                // 2. Fixed the session variable to match expense.php exactly
                 $_SESSION['userName'] = $full_name; 
-                
                 $_SESSION['user_email'] = $email;
 
-                // 3. Fixed the redirect to match your actual dashboard file
-                header("Location: dashboard.php"); 
+                // FIXED: Removed single quotes from inside the header location
+                header("Location: /Dashboard/dash.php"); 
                 exit();
             } else {
                 $message = "<div class='error-msg'>Incorrect password!</div>";
@@ -111,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
                         <label class="remember-me">
                             <input type="checkbox" name="remember"> Remember me
                         </label>
-                        <a href="#" class="forgot-pass">Forgot Password?</a>
+                        <a href="/Forgot password/forgot.php" class="forgot-pass">Forgot Password?</a>
                     </div>
 
                     <button type="submit" class="sign-in-btn">Sign In</button>

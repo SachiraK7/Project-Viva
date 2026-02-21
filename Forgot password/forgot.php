@@ -35,8 +35,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
         $stmt->store_result();
 
         if ($stmt->num_rows == 1) {
-            // Placeholder for your actual email sending logic
-            $message = "<div class='error-text' style='background-color: #4CAF50;'>Password reset link sent to your email!</div>";
+            // FIXED: Set the session variable so the update page knows which user to update
+            $_SESSION['reset_email'] = $email;
+            
+            // FIXED: Redirect to the update password page
+            header("Location: /Update Password/update.php");
+            exit();
         } else {
             $message = "<div class='error-text'>Email not registered!</div>";
         }
@@ -53,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spendify - Reset Password</title>
     <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="forgot.css">
 </head>
 <body>
 
@@ -82,13 +86,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
                         <input type="email" name="email" placeholder='eg: "simon@company.com"' required>
                     </div>
 
-                    <button type="submit" class="sign-in-btn">Reset Password<a href="/Update Password/update.php"></a></button>
+                    <button type="submit" class="sign-in-btn">Reset Password</button>
 
                     <div class="divider">
                         <span>Or Go Back</span>
                     </div>
 
-                    <a href="login.php" class="back-sign-in-btn">Sign In</a>
+                    <a href="/Loging Page/login.php" class="back-sign-in-btn">Sign In</a>
                 </form>
             </div>
         </div>

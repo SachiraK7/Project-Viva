@@ -4,7 +4,7 @@ session_start();
 
 // --- Database Configuration ---
 $host = 'localhost';
-$dbname = 'your_database_name'; // Replace with your DB name
+$dbname = 'spendify_db'; // Replace with your DB name
 $username = 'root';             // Replace with your DB username
 $dbpass = '';                   // Replace with your DB password
 
@@ -29,16 +29,18 @@ if (isset($_POST['submit'])) {
                 // Hash the new password for security (Highly Recommended)
                 $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
 
-                // Update the user table
-                // Assumes your table is named 'user' and columns are 'password' and 'email'
-                $stmt = $pdo->prepare("UPDATE user SET password = :password WHERE email = :email");
+                // FIXED: Changed table name from 'user' to 'users' to match your database
+                $stmt = $pdo->prepare("UPDATE users SET password = :password WHERE email = :email");
                 $stmt->bindParam(':password', $hashed_password);
                 $stmt->bindParam(':email', $email);
 
                 if ($stmt->execute()) {
-                    $message = "<div class='alert success'>Password updated successfully!</div>";
-                    // Optional: Unset the session variable after successful reset
-                    // unset($_SESSION['reset_email']); 
+                    // FIXED: Clear the session variable for security
+                    unset($_SESSION['reset_email']); 
+                    
+                    // FIXED: Redirect to login page upon successful update
+                    header("Location: /Loging Page/login.php");
+                    exit();
                 } else {
                     $message = "<div class='alert error'>Failed to update password.</div>";
                 }
@@ -70,8 +72,6 @@ if (isset($_POST['submit'])) {
         </header>
 
         <main class="main-content">
-           
-
             <div class="form-container">
                 <div class="card">
                     <div class="card-header">
@@ -81,7 +81,9 @@ if (isset($_POST['submit'])) {
                         <h2>FORGOT PASSWORD</h2>
                         <p class="subtitle">The password must be different<br>than before</p>
 
-                        <?php echo $message; ?> <form action="" method="POST" id="updatePasswordForm">
+                        <?php echo $message; ?> 
+
+                        <form action="" method="POST" id="updatePasswordForm">
                             <div class="input-group">
                                 <label for="new_password">New Password</label>
                                 <input type="password" name="new_password" id="new_password" placeholder='eg: "simon@company.com"' required>
@@ -92,7 +94,7 @@ if (isset($_POST['submit'])) {
                                 <input type="password" name="confirm_password" id="confirm_password" placeholder='eg: "simon@company.com"' required>
                             </div>
 
-                            <button type="submit" name="submit" class="btn-continue">Continue<a href="/Loging Page/login.php"></a></button>
+                            <button type="submit" name="submit" class="btn-continue">Continue</button>
                         </form>
                     </div>
                 </div>
