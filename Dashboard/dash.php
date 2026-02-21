@@ -135,7 +135,7 @@ if ($db_connected) {
     <div class="main-content">
         <header>
             <div class="header-left">
-                <i class="fa-solid fa-bars hamburger"></i>
+                <img src="Menu.png" alt="Menu" style="width: 30px; cursor: pointer;">
                 <h1>Dashboard</h1>
             </div>
 
@@ -208,6 +208,6 @@ if ($db_connected) {
         const catData = <?php echo json_encode($catData); ?>;
         const catColors = <?php echo json_encode($catColors); ?>;
     </script>
-    <script src="script.js"></script>
+    <script src="dash.js"></script>
 </body>
 </html>

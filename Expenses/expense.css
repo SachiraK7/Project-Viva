@@ -15,28 +15,30 @@ body {
     background-color: #F3EBF9;
     height: 100vh;
     overflow: hidden;
+    gap: 50px
 }
 
 /* --- SIDEBAR STYLES --- */
 .sidebar {
-    width: 260px;
+    width: 210px;
     background-color: var(--sidebar);
-    padding: 30px 25px;
+    padding: 25px;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    
 }
 
 .brand {
     margin-bottom: 50px;
     padding-left: 10px;
-    display: flex;
+    display: flex; 
     align-items: center;
 }
 
 .logo-img {
-    width: 140px;
+    width: 160px;
     object-fit: contain;
+    height: auto;
 }
 
 /* Remove Dots */
@@ -88,8 +90,9 @@ body {
 /* --- MAIN CONTENT --- */
 .main-content {
     flex: 1;
-    padding: 30px 50px;
+    padding: 10px 10px;
     overflow-y: auto;
+    
 }
 
 /* HEADER */
@@ -97,7 +100,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 70px;
+    position: relative;
 }
 
 .header-left { display: flex; align-items: center; gap: 15px; }
@@ -117,8 +121,11 @@ header {
     border-radius: 12px;
     display: flex;
     align-items: center;
-    width: 350px;
+    width: 280px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .search-bar input {

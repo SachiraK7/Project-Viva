@@ -15,7 +15,7 @@
 }
 
 body {
-    background-color: var(--bg-color);
+    background-color: #F3EBF9;
     display: flex;
     height: 100vh;
     overflow: hidden;
@@ -24,7 +24,7 @@ body {
 /* --- SIDEBAR --- */
 .sidebar {
     width: 260px;
-    background-color: var(--sidebar-color);
+    background-color:#E6DDF6;
     padding: 25px;
     display: flex;
     flex-direction: column;
@@ -62,7 +62,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 70px;
+    position: relative;
 }
 
 .header-left { display: flex; align-items: center; gap: 15px; }
@@ -76,6 +77,9 @@ header {
     align-items: center;
     width: 350px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .search-bar input {

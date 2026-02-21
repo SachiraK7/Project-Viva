@@ -105,7 +105,7 @@ try {
 
       <a href="terms.php" style="text-decoration: none;">
           <button class="btn-box" style="width: 100%;">Terms & conditions</button> </a>
-      <a href="logout.php" style="text-decoration: none;">
+      <a href="/Loging Page/login.php" style="text-decoration: none;">
         <button class="btn-box" style="width: 100%;">Logout</button>
     </a>
        <button class="btn-red" onclick="handleDeleteAccount()">Delete account</button>
