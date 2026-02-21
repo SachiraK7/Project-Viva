@@ -37,11 +37,14 @@ try {
 <body>
 <div class="app-container">
     <aside class="sidebar">
-    <div class="logo-section">
+   
+
+<a href="dash.php" style="text-decoration: none; color: inherit;">
+ <div class="logo-section">
     <img src="logo 1.png" alt="Spendify" class="logo-img" >
     <span class="logo-text">Spendify</span>
                 
-</div>
+</div> </a>
 
 
 <nav class="nav-links">
@@ -80,7 +83,7 @@ try {
 <header class="top-header">
 <div class="menu-label"><img src="Margin.png" alt="Menu">Settings</div>
 <div class="profile-top">
-<span><?php echo htmlspecialchars($userName); ?></span>
+
 <img src="image 10.png" class="mini-avatar">
 </div>
 </header>
@@ -93,10 +96,17 @@ try {
 </div>
                     
 <div class="link-buttons">
-    <button class="btn-box">Privacy policy</button>
-    <button class="btn-box">Terms & conditions</button>
-    <button class="btn-box">Logout</button>
-    <button class="btn-red">Delete account</button>
+      <a href="privacy.php" style="text-decoration: none;">
+        <button class="btn-box" style="width: 100%;">Privacy policy</button> </a>
+
+      <a href="terms.php" style="text-decoration: none;">
+          <button class="btn-box" style="width: 100%;">Terms & conditions</button> </a>
+      <a href="logout.php" style="text-decoration: none;">
+        <button class="btn-box" style="width: 100%;">Logout</button>
+    </a>
+       <button class="btn-red" onclick="handleDeleteAccount()">Delete account</button>
+   
+    
 </div>
 </section>
 

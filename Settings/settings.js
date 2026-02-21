@@ -120,4 +120,65 @@ window.onclick = function(event) {
     if (event.target == modal) {
         closeModal();
     }
+
+function handleDeleteAccount() {
+    // Show the modal overlay
+    const overlay = document.getElementById('modal-overlay');
+    overlay.style.display = 'flex';
+
+    // Update the title and content
+    document.getElementById('modal-title').innerText = "Delete Account";
+    
+    // Hide standard input fields
+    document.getElementById('single-field-container').style.display = 'none';
+    document.getElementById('password-fields-container').style.display = 'none';
+
+    // Add a warning message inside the modal body
+    let modalBody = document.querySelector('.modal-body');
+    modalBody.innerHTML = `
+        <p style="color: #555; font-family: 'Manrope'; line-height: 1.5;">
+            Are you sure you want to delete your account? This action is <strong>permanent</strong> and all your data will be lost.
+        </p>
+    `;
+
+    // Change the Confirm button color to red for safety
+    const confirmBtn = document.querySelector('.btn-confirm');
+    confirmBtn.innerText = "Delete Permanently";
+    confirmBtn.style.background = "#FF5C5C";
+    
+    // Update onclick to handle the actual deletion logic
+    confirmBtn.onclick = function() {
+        window.location.href = 'delete_process.php'; // Point to your deletion script
+    };
+
+function closeModal() {
+    const overlay = document.getElementById('modal-overlay');
+    overlay.style.display = 'none';
+    
+    // Reset the modal body so delete warnings disappear
+    let modalBody = document.querySelector('.modal-body');
+    modalBody.innerHTML = `
+        <div id="single-field-container">
+            <input type="text" id="modal-input" class="modal-field">
+        </div>
+        <div id="password-fields-container" style="display: none;">
+            <label class="modal-label">New Password</label>
+            <input type="password" id="new-password" class="modal-field">
+            <label class="modal-label">Confirm Password</label>
+            <input type="password" id="confirm-password" class="modal-field">
+        </div>
+    `;
+
+    // Reset button color back to black
+    const confirmBtn = document.querySelector('.btn-confirm');
+    confirmBtn.style.background = "#000";
+    confirmBtn.innerText = "Confirm";
+}
+
+
+}
+
+
+
+
 };
