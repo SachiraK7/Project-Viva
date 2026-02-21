@@ -102,6 +102,6 @@ if (isset($_POST['submit'])) {
         </main>
     </div>
 
-    <script src="script.js"></script>
+    <script src="update.js"></script>
 </body>
 </html>

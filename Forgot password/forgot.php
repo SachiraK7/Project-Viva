@@ -98,6 +98,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
         </div>
     </div>
 
-    <script src="login.js"></script>
+    <script src="forgot.js"></script>
 </body>
 </html>

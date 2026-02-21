@@ -208,6 +208,6 @@ if ($db_connected) {
         const catData = <?php echo json_encode($catData); ?>;
         const catColors = <?php echo json_encode($catColors); ?>;
     </script>
-    <script src="script.js"></script>
+    <script src="dash.js"></script>
 </body>
 </html>
