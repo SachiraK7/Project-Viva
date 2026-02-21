@@ -51,22 +51,28 @@ function openCategoryModal() {
 function addNewCategory() {
     const newCat = document.getElementById('newCategoryInput').value;
     if (newCat) {
-        // Add to main dropdown
+        // Add to main dropdown safely
         const select = document.getElementById('categorySelect');
-        const option = document.createElement('option');
-        option.text = newCat;
-        option.value = newCat;
-        select.add(option);
-        select.value = newCat; // Select it
+        if (select) {
+            const option = document.createElement('option');
+            option.text = newCat;
+            option.value = newCat;
+            select.add(option);
+            select.value = newCat; // Select it
+        }
 
-        // Add to update dropdown as well
+        // Add to update dropdown safely (prevents errors if the update modal isn't built yet)
         const updateSelect = document.getElementById('update_category');
-        const updateOption = document.createElement('option');
-        updateOption.text = newCat;
-        updateOption.value = newCat;
-        updateSelect.add(updateOption);
+        if (updateSelect) {
+            const updateOption = document.createElement('option');
+            updateOption.text = newCat;
+            updateOption.value = newCat;
+            updateSelect.add(updateOption);
+        }
 
         closeModal('categoryModal');
+        // Clear the input field so it's empty the next time you open it
+        document.getElementById('newCategoryInput').value = "";
     }
 }
 
@@ -108,41 +114,50 @@ document.querySelectorAll('.data-row').forEach(row => {
         })
         .then(response => response.json())
         .then(data => {
-            // Fill the update form
-            document.getElementById('update_id').value = data.id;
-            document.getElementById('update_date').value = data.date;
-            document.getElementById('update_amount').value = data.amount;
-            document.getElementById('update_description').value = data.description;
-            document.getElementById('update_category').value = data.category;
+            // Fill the update form (Safely checking if elements exist first)
+            const updateIdElem = document.getElementById('update_id');
             
-            // Check if category exists in dropdown, if not add it (handling custom cats)
-            const exists = Array.from(document.getElementById('update_category').options).some(option => option.value === data.category);
-            if (!exists) {
-                const opt = document.createElement('option');
-                opt.value = data.category;
-                opt.text = data.category;
-                document.getElementById('update_category').add(opt);
+            if (updateIdElem) {
+                updateIdElem.value = data.id;
+                document.getElementById('update_date').value = data.date;
+                document.getElementById('update_amount').value = data.amount;
+                document.getElementById('update_description').value = data.description;
                 document.getElementById('update_category').value = data.category;
-            }
+                
+                // Check if category exists in dropdown, if not add it (handling custom cats)
+                const updateCategorySelect = document.getElementById('update_category');
+                const exists = Array.from(updateCategorySelect.options).some(option => option.value === data.category);
+                if (!exists) {
+                    const opt = document.createElement('option');
+                    opt.value = data.category;
+                    opt.text = data.category;
+                    updateCategorySelect.add(opt);
+                    updateCategorySelect.value = data.category;
+                }
 
-            openModal('updateModal');
+                openModal('updateModal');
+            }
         });
     });
 });
 
-document.getElementById('updateExpenseForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
+// Safely attach event listener to update form
+const updateForm = document.getElementById('updateExpenseForm');
+if (updateForm) {
+    updateForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
 
-    fetch('expense.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            closeModal('updateModal');
-            location.reload();
-        }
+        fetch('expense.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                closeModal('updateModal');
+                location.reload();
+            }
+        });
     });
-});
+}
