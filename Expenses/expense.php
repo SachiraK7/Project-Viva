@@ -85,16 +85,16 @@ if ($db_connected) {
 
     <div class="sidebar">
         <div class="brand">
-            <a href="dashboard.php" style="text-decoration: none; display: flex; align-items: center; color: inherit;">
-                 <img src="logo.png" alt="Spendify" class="logo-img" onerror="this.style.display='none'; this.parentNode.innerHTML='<h2 style=\'color:#4A3B80;\'><i class=\'fa-solid fa-wallet\'></i> Spendify</h2>'">
+            <a href="/Dashboard/dash.php" style="text-decoration: none; display: flex; align-items: center; color: inherit;">
+                 <img src="Logo.png" alt="Spendify" class="logo-img">
             </a>
         </div>
         <nav class="menu">
             <ul>
-                <li><a href="dashboard.php"><img src="dashboard.png" class="menu-icon" alt="Dashboard"> Dashboard</a></li>
-                <li><a href="expense.php" class="active"><img src="expense.png" class="menu-icon" alt="Expense"> Expense</a></li>
-                <li><a href="analytics.php"><img src="overview.png" class="menu-icon" alt="Overview"> Overview</a></li>
-                <li><a href="settings.php"><img src="settings.png" class="menu-icon" alt="Settings"> Settings</a></li>
+                <li><a href="/Dashboard/dash.php"><img src="dashboard.png" class="menu-icon" alt="Dashboard"> Dashboard</a></li>
+                <li><a href="/Expenses/expense.php" class="active"><img src="expense.png" class="menu-icon" alt="Expense"> Expense</a></li>
+                <li><a href="/Overview/overview.php"><img src="overview.png" class="menu-icon" alt="Overview"> Overview</a></li>
+                <li><a href="/Settings/settings.php"><img src="settings.png" class="menu-icon" alt="Settings"> Settings</a></li>
             </ul>
         </nav>
     </div>
@@ -112,7 +112,7 @@ if ($db_connected) {
             </div>
 
             <div class="user-profile">
-                <a href="settings.php">
+                <a href="/Settings/settings.php">
                     <img src="profile.png" alt="Profile" class="avatar">
                 </a>
             </div>
@@ -195,17 +195,25 @@ if ($db_connected) {
                         <label>Date</label>
                         <input type="date" name="date" required value="<?php echo date('Y-m-d'); ?>">
                     </div>
+                    
                     <div class="form-group">
                         <label>Category</label>
-                        <select name="category">
-                            <option>Bills</option>
-                            <option>Education</option>
-                            <option>Entertainment</option>
-                            <option>Food</option>
-                            <option>Transport</option>
-                            <option>Other</option>
-                        </select>
+                        <div class="cat-group">
+                            <select name="category" id="categorySelect">
+                                <option value="" disabled selected>Choose Category</option>
+                                <option value="Bills">Bills</option>
+                                <option value="Education">Education</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Food">Food</option>
+                                <option value="Transport">Transport</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <button type="button" class="btn-add-cat" onclick="openCategoryModal()">
+                                <i class="fa-solid fa-plus" style="margin-right: 5px;"></i> Add Category
+                            </button>
+                        </div>
                     </div>
+                    
                     <div class="form-group">
                         <label>Amount</label>
                         <input type="number" name="amount" step="0.01" required>
@@ -216,6 +224,32 @@ if ($db_connected) {
                     </div>
                     <button type="submit" class="btn-submit">Add</button>
                 </form>
+            </div>
+        </div>
+    </div>
+    
+    <div id="categoryModal" class="modal">
+        <div class="modal-content" style="text-align: left;">
+            <span class="close" onclick="closeModal('categoryModal')">&times;</span>
+            <h3 style="margin-top: 0; font-size: 16px; margin-bottom: 20px;">Add Category</h3>
+            <div class="form-group">
+                <label>Category Name</label>
+                <input type="text" id="newCategoryInput" style="border: 1px solid #ccc;">
+            </div>
+            <div class="modal-buttons" style="justify-content: flex-end; gap: 10px;">
+                <button type="button" class="btn-cancel" style="background: #000; color: #fff; padding: 8px 20px;" onclick="closeModal('categoryModal')">Cancel</button>
+                <button type="button" class="btn-confirm" style="background: #000; padding: 8px 20px;" onclick="addNewCategory()">Add Category</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('deleteModal')">&times;</span>
+            <p style="margin-top: 10px; font-weight: bold;">Are you sure you want to delete this expense?</p>
+            <div class="modal-buttons">
+                <button type="button" class="btn-cancel" onclick="closeModal('deleteModal')">Cancel</button>
+                <button type="button" class="btn-confirm" id="confirmDeleteBtn">Delete</button>
             </div>
         </div>
     </div>
