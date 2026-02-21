@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
             $insert->bind_param("sss", $name, $email, $hashed_password);
 
             if ($insert->execute()) {
-                $message = "<div class='success-msg'>Account Created Successfully! <a href='/Loging Page/login.php'>Sign In</a></div>";
+                $message = "<div class='success-msg'>Account Created Successfully! <a href='/Dashboard/dash.php'>Go to the Dashboard</a></div>";
             } else {
                 $message = "<div class='error-msg'>Database error. Please try again.</div>";
             }
@@ -118,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
                         <input type="password" name="confirm_password" id="confirm_password" placeholder='eg: "Dh36#&!*"' required>
                     </div>
 
-                    <button type="submit" class="signup-btn">Sign Up<a href="/Dashboard/"></a></button>
+                    <button type="submit" class="signup-btn">Sign Up<a href="/Dashboard/dash.php"></a></button>
 
                     <div class="divider">
                         <span>Or Sign In</span>
