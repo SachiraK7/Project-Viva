@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
 
                     <div class="form-group">
                         <label>Confirm Password</label>
-                        <input type="password" name="confirm_password" id="confirm_password" placeholder='eg: "Dh36#&!*"' required>
+                        <input type="password" name="confirm_password" id="confirm_password" placeholder='eg: "Dh36#&58"' required>
                     </div>
 
                     <button type="submit" class="signup-btn">Sign Up<a href="/Dashboard/dash.php"></a></button>

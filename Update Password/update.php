@@ -86,12 +86,12 @@ if (isset($_POST['submit'])) {
                         <form action="" method="POST" id="updatePasswordForm">
                             <div class="input-group">
                                 <label for="new_password">New Password</label>
-                                <input type="password" name="new_password" id="new_password" placeholder='eg: "simon@company.com"' required>
+                                <input type="password" name="new_password" id="new_password" placeholder='eg: "d$S%si#"' required>
                             </div>
                             
                             <div class="input-group">
                                 <label for="confirm_password">Confirm Password</label>
-                                <input type="password" name="confirm_password" id="confirm_password" placeholder='eg: "simon@company.com"' required>
+                                <input type="password" name="confirm_password" id="confirm_password" placeholder='eg: "d$S%si#"' required>
                             </div>
 
                             <button type="submit" name="submit" class="btn-continue">Continue</button>

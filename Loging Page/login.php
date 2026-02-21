@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
 <body>
 
     <div class="logo-container">
-        <img src="dashboardlogo.png" alt="Spendify Logo" class="brand-logo">
+        <img src="/Loging Page/img/dashboardlogo.png" alt="Spendify Logo" class="brand-logo">
     </div>
 
     <div class="main-wrapper">
@@ -94,14 +94,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
 
                     <div class="input-group">
                         <div class="icon-holder">
-                            <img src="user.png" alt="User">
+                            <img src="/Loging Page/img/user.png" alt="User">
                         </div>
                         <input type="email" name="email" placeholder="Email" required>
                     </div>
 
                     <div class="input-group">
                         <div class="icon-holder">
-                            <img src="padlock.png" alt="Lock">
+                            <img src="/Loging Page/img/padlock.png" alt="Lock">
                         </div>
                         <input type="password" name="password" placeholder="Password" required>
                     </div>
