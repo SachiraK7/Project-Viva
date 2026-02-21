@@ -6,10 +6,10 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Close sidebar if clicking outside of it (optional better UX)
     document.addEventListener("click", (e) => {
-        if(sidebar.classList.contains("active") && 
+        if(sidebar && sidebar.classList.contains("active") && 
            !sidebar.contains(e.target) && 
-           !menuToggle.contains(e.target)) {
-            sidebar.classList.remove("active");
+           (menuToggle && !menuToggle.contains(e.target))) {
+             sidebar.classList.remove("active");
         }
     });
 
@@ -45,12 +45,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let liTag = "";
 
-        // 1. Add Weekday Headers
-        // NOTE: Standard JS .getDay() returns 0 for Sunday. 
-        // If you want Monday to be the first column, we must adjust the logic.
-        // Below logic assumes Standard Sunday Start. 
-        // If you specifically want MONDAY START (like your design):
-        const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+        // 1. Add Weekday Headers (Using Full Names to match the image)
+        const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
         days.forEach(day => {
             liTag += `<div class="day-name">${day}</div>`;
         });
@@ -70,18 +66,21 @@ document.addEventListener("DOMContentLoaded", function() {
                           currMonth === new Date().getMonth() && 
                           currYear === new Date().getFullYear() ? "active-date" : "";
             
-            liTag += `<div class="date-box ${isToday}">${i}</div>`;
+            // Add leading zeros (01, 02, etc.) to match the image
+            let displayNum = i < 10 ? '0' + i : i;
+            
+            liTag += `<div class="date-box ${isToday}">${displayNum}</div>`;
         }
 
-        // 4. Fill remaining grid cells (optional, purely for design consistency)
-        // Check how many cells we have so far
+        // 4. Fill remaining grid cells dynamically (Fixes the missing line issue)
         let totalCells = adjustedFirstDay + lastDateOfMonth;
-        let remainingCells = 42 - totalCells; // 6 rows * 7 cols = 42 max
-        if (remainingCells < 7) { 
-             // Fill strictly to end of grid if desired, or leave blank
-             for (let i = 0; i < remainingCells; i++) {
-                liTag += `<div class="date-box empty"></div>`;
-             }
+        
+        // This calculates exactly how many rows are needed (e.g., 28, 35, or 42 cells)
+        let totalRequiredCells = Math.ceil(totalCells / 7) * 7; 
+        let remainingCells = totalRequiredCells - totalCells;
+
+        for (let i = 0; i < remainingCells; i++) {
+            liTag += `<div class="date-box empty"></div>`;
         }
 
         calendarGrid.innerHTML = liTag;
