@@ -106,6 +106,13 @@ function saveModalData() {
 }
 
 /**
+ * Closes the modal popup
+ */
+function closeModal() {
+    document.getElementById('modal-overlay').style.display = 'none';
+}
+
+/**
  * Close modal when clicking on the dark background overlay
  */
 window.onclick = function(event) {
@@ -159,10 +166,17 @@ function handleProfilePicChange() {
 
     modalTitle.innerText = "Change Profile Picture";
 
-    // Create the upload UI
+    // Grab the current profile picture source so the modal shows the active picture
+    const currentImgSrc = document.querySelector('.large-avatar').src;
+
+    // Create the upload UI + The new absolute positioned Delete Button
     modalBody.innerHTML = `
-        <div class="upload-container">
-            <img src="image 10.png" class="modal-preview-img" id="preview">
+        <div class="upload-container" style="position: relative; display: inline-block;">
+            <img src="${currentImgSrc}" class="modal-preview-img" id="preview">
+            
+            <img src="delete.png" alt="Delete" onclick="deleteProfilePic()" 
+                 style="position: absolute; top: -5px; right: -25px; cursor: pointer; width: 30px; height: 30px; background: white; border-radius: 50%; padding: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                 
             <br>
             <label for="profile-upload" class="file-input-label">
                 Click to select new image
@@ -174,10 +188,44 @@ function handleProfilePicChange() {
     // Buttons for Saving
     modalFooter.innerHTML = `
         <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-        <button class="btn-confirm" style="background: #8A56E2;" onclick="saveProfilePic()">Save Picture</button>
+        <button class="btn-confirm" style="background: #000000;" onclick="saveProfilePic()">Save Picture</button>
     `;
 
     overlay.style.display = 'flex';
+}
+
+// NEW: Function to handle the deletion logic via fetch
+function deleteProfilePic() {
+    if (confirm("Are you sure you want to remove your profile picture?")) {
+        
+        const formData = new FormData();
+        formData.append('action', 'delete_profile_pic');
+
+        fetch('settings.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            const parts = data.split('|');
+            if (parts[0] === "success") {
+                const defaultImagePath = parts[1]; // This will be "image 10.png"
+                
+                // Instantly update UI images to default
+                document.querySelector('.large-avatar').src = defaultImagePath;
+                document.querySelector('.mini-avatar').src = defaultImagePath;
+                
+                closeModal();
+                alert("Profile picture removed successfully!");
+            } else {
+                alert("Error: " + parts[1]);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("An error occurred while removing the image.");
+        });
+    }
 }
 
 // Function to preview the image before uploading

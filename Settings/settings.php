@@ -15,7 +15,24 @@ try {
     $pdo = new PDO("mysql:host=$host;dbname=$db_name", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    // --- NEW: HANDLE PROFILE PICTURE UPLOAD ---
+    // --- NEW: HANDLE PROFILE PICTURE DELETION ---
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete_profile_pic' && isset($_SESSION['user_email'])) {
+        // Update the database to remove the profile image
+        $stmt = $pdo->prepare("UPDATE users SET profile_img = NULL WHERE email = :email");
+        $stmt->bindParam(':email', $_SESSION['user_email']);
+        
+        if ($stmt->execute()) {
+            // Send success response back to JavaScript with the default fallback image
+            echo "success|image 10.png";
+            exit(); 
+        } else {
+            echo "error|Database update failed.";
+            exit();
+        }
+    }
+    // ---------------------------------------------------------------------
+
+    // --- HANDLE PROFILE PICTURE UPLOAD ---
     // This intercepts the image sent by your JavaScript fetch()
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_pic']) && isset($_SESSION['user_email'])) {
         $uploadDir = "uploads/";
