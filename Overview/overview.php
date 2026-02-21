@@ -28,19 +28,19 @@
         
         <aside class="sidebar">
             <div class="brand">
-            <a href="dashboard.php" style="text-decoration: none; display: flex; align-items: center; color: inherit;">
+            <a href="/Dashboard/dash.php" style="text-decoration: none; display: flex; align-items: center; color: inherit;">
                  <img src="logo.png" alt="Spendify" class="logo-img" onerror="this.style.display='none'; this.parentNode.innerHTML='<h2 style=\'color:#4A3B80;\'><i class=\'fa-solid fa-wallet\'></i> Spendify</h2>'">
             </a>
             </div>
             <nav class="side-nav">
                 <ul>
-                    <li><a href="dashboard.php">
+                    <li><a href="/Dashboard/dash.php">
                         <img src="dashboard.png" alt="Dashboard"> Dashboard
                     </a></li>
-                    <li><a href="expense.php">
+                    <li><a href="/Expenses/expense.php">
                         <img src="sideexpense.png" alt="Expense"> Expense
                     </a></li>
-                    <li class="active"><a href="overview.php">
+                    <li class="active"><a href="/Overview/overview.php">
                         <img src="overvirew.png" alt="Overview"> Overview
                     </a></li>
                 </ul>
@@ -48,7 +48,7 @@
 
             <div class="side-footer">
                 <ul>
-                    <li><a href="settings.php">
+                    <li><a href="/Settings/settings.php">
                         <img src="settings.png" alt="Settings"> Settings
                         </a>
                     </li>
@@ -71,7 +71,7 @@
                 </div>
 
                 <div class="user-profile">
-                <a href="settings.php">
+                <a href="/Settings/settings.php">
                     <img src="profile.png" alt="Profile" class="avatar">
                 </a>
             </div>
