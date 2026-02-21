@@ -1,207 +1,185 @@
-/* ===== Exact Color Palette sampled from image ===== */
-:root {
-    --sidebar-bg: #e2e5f1;          /* Light Lavender Grey */
-    --main-bg: #ffffff;             /* White Content Area */
-    --topbar-bg: #f8f9fd;           /* Very light top bar */
-    --input-bg: #fdfdfd;            /* Near-white input fill */
-    --border-light: #dcdcdc;        /* Light grey for input borders */
-    --text-main: #333333;           /* Standard dark text */
-    --accent-purple: #7d68d0;       /* "Change" links color */
-    --delete-red: #ff5a5a;          /* Specific red for delete button */
-    --delete-border: #2c2c2c;       /* Dark charcoal border */
-}
+* { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+body, html { margin: 0; padding: 0; height: 100%; background: #decdf6; }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', 'Segoe UI', sans-serif;
-}
+.app-container { display: flex; height: 100vh; }
 
-body {
-    display: flex;
-    height: 100vh;
-    background-color: var(--main-bg);
+/* Sidebar */
+.sidebar { width: 230px; padding: 30px 20px; display: flex; flex-direction: column; height: 100vh;}
+.logo-section { display: flex; align-items: center; gap: 12px; margin-bottom: 50px; background: #decdf6;}
+.logo-img { width: 32px; height: 32px; }
+.logo-text {  font-size: 22px; }
+.nav-item { padding: 12px 10px; color: #333; cursor: pointer;display: flex;align-items: center; gap: 12px; }
+.logo-text, .nav-item {
+    font-family: 'Poppins', sans-serif;
 }
+.nav-icon {
+    width: 20px; 
+    height: 20px;
+    object-fit: contain;}
 
-/* ===== SIDEBAR ===== */
-.sidebar {
-    width: 240px;
-    background: var(--sidebar-bg);
+
+.nav-links {
     display: flex;
     flex-direction: column;
-    padding: 40px 24px;
+    gap: 5px; /* Tightens the spacing between Dashboard/Expense/Overview */
 }
 
-.logo-placeholder {
-    height: 50px; /* Space for your logo at the top left */
-    margin-bottom: 30px;
+.nav-link-wrapper {
+    text-decoration: none; /* Crucial: removes the default blue link underline */
+    color: inherit;
 }
 
-.menu-top, .menu-bottom {
-    list-style: none;
+.settings-bottom-wrapper {
+    margin-top: auto; 
+    text-decoration: none;
+    color: inherit;
+    padding-bottom: 20px; /* Optional: adds a little breathing room from the bottom edge */
 }
 
-.menu-bottom {
-    margin-top: auto; /* Pushes Settings to the bottom */
+.nav-item.active {
+    font-weight: 700; /* Makes "Settings" stand out as the active page */
 }
 
-.sidebar li {
-    padding: 14px 0;
-    color: #666;
-    cursor: pointer;
-    font-size: 15px;
-    display: flex;
+.nav-item:hover {
+    background: rgba(0, 0, 0, 0.05); /* Adds a subtle grey hover effect */
+}
+
+
+
+/* Main Wrapper */
+.main-content { flex: 1; display: flex; flex-direction: column; }
+.top-header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+.mini-avatar { width: 35px; height: 35px; border-radius: 50%; margin-left: 10px; }
+.menu-label{font-family:'Manrope';padding: 12px 10px; color: #333; cursor: pointer;display: flex;align-items: center; gap: 10px; font-weight:bold; }
+.menu-label img {
+    width: 20px;           
+    height: 20px;
+    object-fit: contain;
+}
+
+h1, h2, .section-heading {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700;
+}
+
+body, label, input, .square-btn, .btn-delete {
+    font-family: 'Roboto Slab', sans-serif;
+}
+
+/* White Layout Box */
+.settings-white-card { 
+    flex: 1; 
+    background: white; 
+    border-top-left-radius: 0px; 
+    display: flex; 
+    overflow: hidden; 
+}
+
+/* Left Column */
+.left-profile { width: 45%; padding: 60px; display: flex; flex-direction: column; align-items: center; background: #F8F4FF; }
+.profile-hero { text-align: center; margin-bottom: 40px; display: flex; align-items: center; gap: 20px; }
+.large-avatar { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; }
+.display-name { font-size: 26px; font-weight: 600; margin: 0; }
+
+.link-buttons { width: 100%; max-width: 260px; display: flex; flex-direction: column; gap: 12px; }
+.btn-box { background: white; border: 1px solid #ccc; padding: 10px 15px; border-radius: 4px; text-align: left; cursor: pointer; }
+.btn-red { background: #FF5C5C; color: white; border: 1px solid black; padding: 12px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 80px; }
+
+/* Vertical Line */
+.v-line { width: 1.5px;height:100%; background: #000000; margin: 50px 0; align-self: center;}
+
+/* Right Column */
+.right-form { width: 55%; padding: 80px; }
+.group-title { font-size: 20px; margin-bottom: 30px; }
+.security-gap { margin-top: 50px; }
+
+.form-group { margin-bottom: 25px; }
+.form-group label { display: block; color: #666; font-size: 14px; margin-bottom: 8px; }
+.custom-input { border: 1px solid #999; border-radius: 4px; display: flex; align-items: center; padding: 8px 15px; background: white; }
+.custom-input input { border: none; outline: none; flex: 1; font-size: 15px; color: #333; }
+.edit-link { color: #8A56E2; font-size: 13px; cursor: pointer; white-space: nowrap; font-weight: 500; }
+
+
+/* Dark background that covers the whole screen */
+.modal-overlay {
+    display: none; /* JS toggles this to 'flex' */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Dim the background */
+    z-index: 9999; /* Stay on top of everything */
+    justify-content: center;
     align-items: center;
 }
 
-.sidebar li.active {
-    font-weight: 700;
-    color: #1a1a1a;
+/* The white popup box */
+.modal-box {
+    background: #fff;
+    width: 400px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: left;
 }
 
-.icon {
-    width: 24px;
-    margin-right: 12px;
-    opacity: 0.7;
-}
-
-/* ===== MAIN AREA ===== */
-.main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.topbar {
-    height: 70px;
-    padding: 0 40px;
+/* Header and Close button */
+.modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--topbar-bg);
-    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
 }
 
-.topbar-left {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.user-info {
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-}
-
-.top-avatar {
-    width: 32px;
-    height: 32px;
-    background: #e0e0e0;
-    border-radius: 50%;
-    margin-left: 10px;
-}
-
-.content {
-    display: flex;
-    flex: 1;
-}
-
-/* LEFT SECTION */
-.profile-section {
-    width: 38%;
-    padding: 60px 50px;
-    text-align: center;
-    border-right: 1px solid #efefef;
-}
-
-.avatar-gradient {
-    width: 110px;
-    height: 110px;
-    /* Sampled Gradient from Figma */
-    background: linear-gradient(180deg, #ff94b3 0%, #4f68cc 100%);
-    border-radius: 50%;
-    margin: 0 auto 15px;
-}
-
-.user-full-name {
-    margin-bottom: 40px;
-    font-size: 24px;
-    font-weight: 600;
-}
-
-.btn-outline {
-    display: block;
-    width: 100%;
-    max-width: 280px;
-    margin: 0 auto 12px;
-    padding: 10px;
-    background: #ffffff;
-    border: 1px solid #999;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-.btn-danger-bold {
-    display: block;
-    width: 100%;
-    max-width: 280px;
-    margin: 60px auto 0;
-    padding: 14px;
-    background: var(--delete-red);
-    color: white;
-    border: 2.5px solid var(--delete-border); /* Thick dark border */
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-/* RIGHT SECTION */
-.settings-section {
-    width: 62%;
-    padding: 60px 80px;
-}
-
-.settings-group h3 {
+.modal-header h3 {
+    margin: 0;
     font-size: 18px;
-    margin-bottom: 30px;
-    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
 }
 
-.security { margin-top: 50px; }
+.close-x {
+    cursor: pointer;
+    font-size: 20px;
+    color: #888;
+}
 
-.input-field { margin-bottom: 24px; }
-
-.input-field label {
+/* Inputs and Labels */
+.modal-label {
     display: block;
     font-size: 13px;
-    color: #444;
-    margin-bottom: 8px;
     font-weight: 600;
-}
-
-.field-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.field-container input {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid var(--border-light);
-    border-radius: 4px;
-    background: var(--input-bg);
+    margin-bottom: 8px;
     color: #333;
 }
 
-.field-container a {
-    position: absolute;
-    right: 15px;
-    font-size: 13px;
-    color: var(--accent-purple);
-    text-decoration: none;
+.modal-field {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box; /* Prevents input from overflowing */
+}
+
+/* Black pill-shaped buttons */
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.btn-cancel, .btn-confirm {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 25px; /* Pill shape */
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-cancel:hover, .btn-confirm:hover {
+    opacity: 0.8;
 }

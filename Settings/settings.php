@@ -1,70 +1,167 @@
+<?php
+$host = "localhost";
+$db_name = "spendify";
+$username = "root";
+$password = "";
+
+// Default fallback values
+$userName = "Simon Riley";
+$userEmail = "simon@company.com";
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$db_name", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    // Fetching user 
+    $stmt = $pdo->prepare("SELECT name, email FROM users LIMIT 1");
+    $stmt->execute();
+    $db_user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if ($db_user) {
+        $userName = $db_user['name']; // Your specific column name
+        $userEmail = $db_user['email'];
+    }
+} catch(PDOException $e) {
+    // Silently handle error to keep the UI clean
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Spendify - Settings</title>
+    <title>Spendify Settings</title>
     <link rel="stylesheet" href="settings.css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Poppins:wght@400;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-<div class="sidebar">
-    <h2>Spendify</h2>
-
-    <ul>
-        <li>Dashboard</li>
-        <li>Expense</li>
-        <li>Overview</li>
-        <li class="active">Settings</li>
-    </ul>
+<div class="app-container">
+    <aside class="sidebar">
+    <div class="logo-section">
+    <img src="logo 1.png" alt="Spendify" class="logo-img" >
+    <span class="logo-text">Spendify</span>
+                
 </div>
 
-<div class="main">
 
-    <div class="topbar">
-        <h2>Settings</h2>
-        <div class="user-name">Simon Riley</div>
-    </div>
-
-    <div class="content">
-
-        <!-- Left Profile -->
-        <div class="profile-section">
-            <div class="profile-card">
-                <div class="avatar"></div>
-                <h3>Simon Riley</h3>
-
-                <button class="btn-light">Privacy Policy</button>
-                <button class="btn-light">Terms & Conditions</button>
-                <button class="btn-light">Logout</button>
-                <button class="btn-danger">Delete Account</button>
-            </div>
+<nav class="nav-links">
+    <a href="dash.php" class="nav-link-wrapper">
+        <div class="nav-item">
+            <img src="image 1.png" class="nav-icon"> Dashboard
         </div>
+    </a>
 
-        <!-- Right Settings -->
-        <div class="settings-section">
+    <a href="expense.php" class="nav-link-wrapper">
+        <div class="nav-item">
+            <img src="image 2.png" class="nav-icon"> Expense
+        </div>
+    </a>
 
-            <h3>Profile Information</h3>
+    <a href="overview.php" class="nav-link-wrapper">
+        <div class="nav-item">
+            <img src="image 18.png" class="nav-icon"> Overview
+        </div>
+    </a>
+</nav>
 
-            <div class="input-group">
-                <label>Full Name</label>
-                <div class="input-box">
-                    <input type="text" value="Simon Riley" readonly>
-                    <a href="#">Change name ></a>
-                </div>
-            </div>
+<a href="settings.php" class="nav-link-wrapper settings-bottom-wrapper">
+    <div class="nav-item active settings-bottom">
+        <img src="image 4.png" class="nav-icon" > Settings
+    </div>
+</a>
+</aside>
 
-            <div class="input-group">
-                <label>Email Address</label>
-                <div class="input-box">
-                    <input type="text" value="simon@email.com" readonly>
-                    <a href="#">Change email ></a>
-                </div>
-            </div>
 
-            <h3 class="security-title">Security</h3>
 
-            <div class="input-group">
-                <label>Password</label>
-                <div class="input-box">
-                    <input type="password" value="12345678" readonly>
-                    <a href="#">Change password ></a>
+
+
+
+<main class="main-content">
+<header class="top-header">
+<div class="menu-label"><img src="Margin.png" alt="Menu">Settings</div>
+<div class="profile-top">
+<span><?php echo htmlspecialchars($userName); ?></span>
+<img src="image 10.png" class="mini-avatar">
+</div>
+</header>
+
+<div class="settings-white-card">
+<section class="left-profile">
+<div class="profile-hero">
+<img src="image 10.png" class="large-avatar">
+<h1 class="display-name"><?php echo htmlspecialchars($userName); ?></h1>
+</div>
+                    
+<div class="link-buttons">
+    <button class="btn-box">Privacy policy</button>
+    <button class="btn-box">Terms & conditions</button>
+    <button class="btn-box">Logout</button>
+    <button class="btn-red">Delete account</button>
+</div>
+</section>
+
+<div class="v-line"></div>
+
+<section class="right-form">
+<h3 class="group-title">Profile information</h3>
+                    
+<div class="form-group">
+<label>Full name</label>
+<div class="custom-input">
+    <input type="text" id="name" value="<?php echo htmlspecialchars($userName); ?>" readonly>
+    <span class="edit-link" onclick="handleEdit('name')">Change name ></span>
+</div>
+</div>
+
+<div class="form-group">
+    <label>Email address</label>
+<div class="custom-input">
+    <input type="email" id="email" value="<?php echo htmlspecialchars($userEmail); ?>" readonly>
+    <span class="edit-link" onclick="handleEdit('email')">Change email address ></span>
+</div>
+</div>
+
+<h3 class="group-title security-gap">Security</h3>
+<div class="form-group">
+    <label>Password</label>
+<div class="custom-input">
+<input type="password" id="password" value="********" readonly>
+<span class="edit-link" onclick="handleEdit('password')">Change password ></span>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+
+<div id="modal-overlay" class="modal-overlay" style="display: none;">
+    <div class="modal-box">
+    <div class="modal-header">
+    <h3 id="modal-title">Change Name</h3>
+    <span class="close-x" onclick="closeModal()">&times;</span>
+    </div>
+        
+<div class="modal-body">
+    <div id="single-field-container">
+    <input type="text" id="modal-input" class="modal-field">
+</div>
+
+ <div id="password-fields-container" style="display: none;">
+    <label class="modal-label">New Password</label>
+    <input type="password" id="new-password" class="modal-field">
+    <label class="modal-label">Confirm Password</label>
+    <input type="password" id="confirm-password" class="modal-field">
+</div>
+</div>
+
+ <div class="modal-footer">
+    <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+    <button class="btn-confirm" onclick="saveModalData()">Confirm</button>
+</div>
+</div>
+</div>
+
+<script src="settings.js"></script>
+</body>
+</html>
+
