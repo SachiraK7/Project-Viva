@@ -1,7 +1,7 @@
 <?php
 // --- CONFIGURATION ---
 $host = 'localhost';
-$dbname = 'spendify'; 
+$dbname = 'spendify_db'; 
 $user = 'root'; 
 $pass = '';      
 
@@ -127,7 +127,7 @@ if ($db_connected) {
                 <li><a href="dashboard.php" class="active"><img src="dashboard.png" class="menu-icon"> Dashboard</a></li>
                 <li><a href="expense.php"><img src="expense.png" class="menu-icon"> Expense</a></li>
                 <li><a href="analytics.php"><img src="overview.png" class="menu-icon"> Overview</a></li>
-                <li><a href="settings.php"><img src="settings.png" class="menu-icon"> Settings</a></li>
+                <li><a href="/Settings/settings.php"><img src="settings.png" class="menu-icon"> Settings</a></li>
             </ul>
         </nav>
     </div>
