@@ -127,11 +127,57 @@ if ($db_connected) {
         </div>
     </header>
 
+<<<<<<< HEAD
     <div class="cards-container">
         <div class="card">
             <div>
                 <div class="card-label">Today Expense</div>
                 <div class="card-amount">$<?php echo number_format($today_expense); ?></div>
+=======
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass" style="color: #999;"></i>
+                <input type="text" placeholder="Search">
+            </div>
+
+            <div class="user-profile">
+                <a href="/Settings/settings.php">
+                    <img src="profile.png" alt="Profile" class="avatar">
+                </a>
+            </div>
+        </header>
+
+        <div class="cards-container">
+            <div class="card">
+                <div>
+                    <div class="card-label">Today Expense</div>
+                    <div class="card-amount">$<?php echo number_format($today_expense); ?></div>
+                </div>
+                <img src="today.png" class="card-img-icon">
+            </div>
+
+            <div class="card">
+                <div>
+                    <div class="card-label">Last week Expense</div>
+                    <div class="card-amount">$<?php echo number_format($week_expense); ?></div>
+                </div>
+                <img src="last_week.png" class="card-img-icon">
+            </div>
+
+            <div class="card">
+                <div>
+                    <div class="card-label">Last 30 day Expense</div>
+                    <div class="card-amount">$<?php echo number_format($month_expense); ?></div>
+                </div>
+                <img src="last_month.png" class="card-img-icon">
+            </div>
+
+            <div class="card">
+                <div>
+                    <div class="card-label">Total Expense</div>
+                    <div class="card-amount">$<?php echo number_format($total_expense); ?></div>
+                </div>
+                <img src="total.png" class="card-img-icon">
+>>>>>>> bca3fb49d46514f6a2a0fcb64235f59d85db8e0d
             </div>
             <img src="today.png" class="card-img-icon">
         </div>
