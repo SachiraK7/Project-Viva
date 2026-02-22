@@ -199,7 +199,7 @@ if ($db_connected) {
                     <div class="form-group">
                         <label>Category</label>
                         <div class="cat-group">
-                            <select name="category" id="categorySelect">
+                            <select name="category" id="categorySelect" style="width: 100%; box-sizing: border-box;">
                                 <option value="" disabled selected>Choose Category</option>
                                 <option value="Bills">Bills</option>
                                 <option value="Education">Education</option>
@@ -208,9 +208,6 @@ if ($db_connected) {
                                 <option value="Transport">Transport</option>
                                 <option value="Other">Other</option>
                             </select>
-                            <button type="button" class="btn-add-cat" onclick="openCategoryModal()">
-                                <i class="fa-solid fa-plus" style="margin-right: 5px;"></i> Add Category
-                            </button>
                         </div>
                     </div>
                     
