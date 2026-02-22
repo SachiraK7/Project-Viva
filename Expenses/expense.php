@@ -198,6 +198,7 @@ if ($db_connected) {
                     
                     <div class="form-group">
                         <label>Category</label>
+<<<<<<< HEAD
                         <select name="category" id="categorySelect" required>
                             <option value="" disabled selected>Choose Category</option>
                             <option value="Bills">Bills</option>
@@ -211,6 +212,19 @@ if ($db_connected) {
                             <option value="Transport">Transport</option>
                             <option value="Other">Other</option>
                         </select>
+=======
+                        <div class="cat-group">
+                            <select name="category" id="categorySelect" style="width: 100%; box-sizing: border-box;">
+                                <option value="" disabled selected>Choose Category</option>
+                                <option value="Bills">Bills</option>
+                                <option value="Education">Education</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Food">Food</option>
+                                <option value="Transport">Transport</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+>>>>>>> 9d039237b52eaebadf2a1cc39aa23d9aae5f75c8
                     </div>
                     
                     <div class="form-group">
