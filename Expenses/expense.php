@@ -30,14 +30,16 @@ if ($db_connected && isset($_POST['action'])) {
     $action = $_POST['action'];
     try {
         if ($action === 'add_expense') {
-            $stmt = $pdo->prepare("INSERT INTO expenses (date, category, amount, description) VALUES (?, ?, ?, ?)");
-            $result = $stmt->execute([$_POST['date'], $_POST['category'], $_POST['amount'], $_POST['description']]);
+            // Updated column names: expense_date, category_id, amount, description
+            $stmt = $pdo->prepare("INSERT INTO expenses (expense_date, category_id, amount, description) VALUES (?, ?, ?, ?)");
+            $result = $stmt->execute([$_POST['expense_date'], $_POST['category_id'], $_POST['amount'], $_POST['description']]);
             echo json_encode(['success' => $result]);
             exit;
         }
         if ($action === 'delete_expense') {
-            $stmt = $pdo->prepare("DELETE FROM expenses WHERE id = ?");
-            $result = $stmt->execute([$_POST['id']]);
+            // Updated column name: expense_id
+            $stmt = $pdo->prepare("DELETE FROM expenses WHERE expense_id = ?");
+            $result = $stmt->execute([$_POST['id']]); // Keep as $_POST['id'] since JS sends it as 'id'
             echo json_encode(['success' => $result]);
             exit;
         }
@@ -51,26 +53,29 @@ if ($db_connected && isset($_POST['action'])) {
 if ($db_connected) {
     function getSum($pdo, $interval = null) {
         $sql = "SELECT SUM(amount) as total FROM expenses";
-        if ($interval === 'today') $sql .= " WHERE date = CURDATE()";
-        elseif ($interval === 'week') $sql .= " WHERE date >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)";
-        elseif ($interval === 'month') $sql .= " WHERE date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)";
+        // Updated column name: expense_date
+        if ($interval === 'today') $sql .= " WHERE expense_date = CURDATE()";
+        elseif ($interval === 'week') $sql .= " WHERE expense_date >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)";
+        elseif ($interval === 'month') $sql .= " WHERE expense_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)";
+        
         $stmt = $pdo->query($sql);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'] ?? 0;
     }
+    
     $today_expense = getSum($pdo, 'today');
     $week_expense = getSum($pdo, 'week');
     $month_expense = getSum($pdo, 'month');
     $total_expense = getSum($pdo);
     
     try {
-        $expenses = $pdo->query("SELECT * FROM expenses ORDER BY date DESC")->fetchAll(PDO::FETCH_ASSOC);
+        // Updated column name: expense_date
+        $expenses = $pdo->query("SELECT * FROM expenses ORDER BY expense_date DESC")->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
         $expenses = [];
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -173,11 +178,11 @@ if ($db_connected) {
                         ?>
                         <tr>
                             <td><?php echo $count++; ?></td>
-                            <td><?php echo htmlspecialchars($row['category']); ?></td>
-                            <td><?php echo htmlspecialchars($row['date']); ?></td>
+                            <td><?php echo htmlspecialchars($row['category_id']); ?></td>
+                            <td><?php echo htmlspecialchars($row['expense_date']); ?></td>
                             <td>$ <?php echo htmlspecialchars($row['amount']); ?></td>
                             <td>
-                                <button class="btn-delete" onclick="openDeleteModal(<?php echo $row['id']; ?>)">Delete</button>
+                                <button class="btn-delete" onclick="openDeleteModal(<?php echo $row['expense_id']; ?>)">Delete</button>
                             </td>
                         </tr>
                         <?php endforeach; else: ?>
@@ -187,29 +192,29 @@ if ($db_connected) {
                 </table>
             </div>
 
-            <div class="expense-form" style="margin-bottom: 150px;">
+            <div class="expense-form">
                 <h2>Add New Expense</h2>
                 <form id="addExpenseForm">
                     <input type="hidden" name="action" value="add_expense">
                     <div class="form-group">
                         <label>Date</label>
-                        <input type="date" name="date" required value="<?php echo date('Y-m-d'); ?>">
+                        <input type="date" name="expense_date" required value="<?php echo date('Y-m-d'); ?>">
                     </div>
                     
                     <div class="form-group">
                         <label>Category</label>
-                        <select name="category" id="categorySelect" required>
+                        <select name="category_id" id="categorySelect" required>
                             <option value="" disabled selected>Choose Category</option>
-                            <option value="Bills">Bills</option>
-                            <option value="Education">Education</option>
-                            <option value="Entertainment">Entertainment</option>
-                            <option value="Fashion">Fashion</option>
-                            <option value="Health">Health</option>
-                            <option value="Household">Household</option>
-                            <option value="Personal care">Personal care</option>
-                            <option value="Saving">Saving</option>
-                            <option value="Transport">Transport</option>
-                            <option value="Other">Other</option>
+                            <option value="1">Bills</option>
+                            <option value="2">Education</option>
+                            <option value="3">Entertainment</option>
+                            <option value="4">Fashion</option>
+                            <option value="5">Health</option>
+                            <option value="6">Household</option>
+                            <option value="7">Personal care</option>
+                            <option value="8">Saving</option>
+                            <option value="9">Transport</option>
+                            <option value="10">Other</option>
                         </select>
                     </div>
                     

@@ -38,8 +38,11 @@ document.getElementById('confirmDeleteBtn').addEventListener('click', function()
             if (data.success) {
                 closeModal('deleteModal');
                 location.reload(); // Reload to show changes
+            } else {
+                alert('Error deleting expense: ' + (data.error || 'Unknown error'));
             }
-        });
+        })
+        .catch(error => console.error('Error:', error));
     }
 });
 
@@ -57,10 +60,16 @@ document.getElementById('addExpenseForm').addEventListener('submit', function(e)
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            // Successfully saved to spendify_db expenses table
             location.reload(); // Reload to refresh table and totals
         } else {
-            alert('Error adding expense');
+            // Shows the specific error from PHP (e.g., "Please fill all required fields correctly.")
+            alert('Error adding expense: ' + (data.error || 'Unknown error'));
         }
+    })
+    .catch(error => {
+        console.error('Fetch Error:', error);
+        alert('An error occurred while connecting to the server.');
     });
 });
 
@@ -86,26 +95,29 @@ document.querySelectorAll('.data-row').forEach(row => {
             const updateIdElem = document.getElementById('update_id');
             
             if (updateIdElem) {
-                updateIdElem.value = data.id;
-                document.getElementById('update_date').value = data.date;
+                // Updated variable names mapped to your database columns
+                updateIdElem.value = data.expense_id; 
+                document.getElementById('update_date').value = data.expense_date;
                 document.getElementById('update_amount').value = data.amount;
                 document.getElementById('update_description').value = data.description;
-                document.getElementById('update_category').value = data.category;
+                document.getElementById('update_category').value = data.category_id;
                 
                 // Check if category exists in dropdown, if not add it (handling custom cats)
                 const updateCategorySelect = document.getElementById('update_category');
-                const exists = Array.from(updateCategorySelect.options).some(option => option.value === data.category);
+                // Updated data.category to data.category_id here as well
+                const exists = Array.from(updateCategorySelect.options).some(option => option.value == data.category_id);
                 if (!exists) {
                     const opt = document.createElement('option');
-                    opt.value = data.category;
-                    opt.text = data.category;
+                    opt.value = data.category_id;
+                    opt.text = data.category_id;
                     updateCategorySelect.add(opt);
-                    updateCategorySelect.value = data.category;
+                    updateCategorySelect.value = data.category_id;
                 }
 
                 openModal('updateModal');
             }
-        });
+        })
+        .catch(error => console.error('Error:', error));
     });
 });
 
@@ -125,7 +137,10 @@ if (updateForm) {
             if (data.success) {
                 closeModal('updateModal');
                 location.reload();
+            } else {
+                 alert('Error updating expense: ' + (data.error || 'Unknown error'));
             }
-        });
+        })
+        .catch(error => console.error('Error:', error));
     });
 }
