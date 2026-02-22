@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // --- 1. BAR CHART CONFIGURATION ---
     const ctxBar = document.getElementById('barChart').getContext('2d');
-    new Chart(ctxBar, {
+    const barChart = new Chart(ctxBar, {
         type: 'bar',
         data: {
             labels: weeklyLabels, 
@@ -32,11 +32,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 y: {
                     beginAtZero: true,
                     grid: { 
-                        color: '#FFFFFF', // White grid lines
+                        color: '#FFFFFF', 
                         drawBorder: false 
                     },
                     ticks: {
-                        stepSize: 50, // Jump by 50 dollars
+                        stepSize: 50, 
                         callback: function(value) { return '$' + value; },
                         font: { family: 'Poppins', size: 11 }
                     }
@@ -56,8 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // --- 2. PIE CHART CONFIGURATION ---
     const ctxPie = document.getElementById('pieChart').getContext('2d');
     const totalExpense = catData.reduce((acc, val) => Number(acc) + Number(val), 0);
-
-    new Chart(ctxPie, {
+    const pieChart = new Chart(ctxPie, {
         type: 'pie',
         data: {
             labels: catLabels, 
@@ -72,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { display: false }, // Turned off for custom HTML legend
+                legend: { display: false },
                 tooltip: {
                     callbacks: {
                         label: function(context) {
@@ -90,7 +89,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // --- 3. DYNAMIC CUSTOM PIE CHART LEGEND ---
     const legendContainer = document.getElementById('custom-legend');
-    
     if (legendContainer) {
         let legendHTML = '';
         catLabels.forEach((label, index) => {
@@ -105,4 +103,37 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         legendContainer.innerHTML = legendHTML;
     }
+
+    // --- 4. AUTO-UPDATE CHARTS EVERY 5 SECONDS ---
+    setInterval(() => {
+        fetch('dashboard_data.php') // PHP endpoint returns JSON with weeklyLabels, weeklyData, catLabels, catData, catColors
+            .then(res => res.json())
+            .then(data => {
+                // Update bar chart
+                barChart.data.labels = data.weeklyLabels;
+                barChart.data.datasets[0].data = data.weeklyData;
+                barChart.update();
+
+                // Update pie chart
+                pieChart.data.labels = data.catLabels;
+                pieChart.data.datasets[0].data = data.catData;
+                pieChart.data.datasets[0].backgroundColor = data.catColors;
+                pieChart.update();
+
+                // Update custom legend
+                if (legendContainer) {
+                    let legendHTML = '';
+                    data.catLabels.forEach((label, index) => {
+                        legendHTML += `
+                            <div class="legend-item">
+                                <span class="legend-color" style="background-color: ${data.catColors[index]}; width: 14px; height: 14px; display: inline-block;"></span>
+                                <span class="legend-text" style="font-size: 11px; font-family: 'Poppins';">${label}</span>
+                            </div>
+                        `;
+                    });
+                    legendContainer.innerHTML = legendHTML;
+                }
+            });
+    }, 5000);
+
 });
