@@ -43,38 +43,6 @@ document.getElementById('confirmDeleteBtn').addEventListener('click', function()
     }
 });
 
-// --- Add Category Logic ---
-function openCategoryModal() {
-    openModal('categoryModal');
-}
-
-function addNewCategory() {
-    const newCat = document.getElementById('newCategoryInput').value;
-    if (newCat) {
-        // Add to main dropdown safely
-        const select = document.getElementById('categorySelect');
-        if (select) {
-            const option = document.createElement('option');
-            option.text = newCat;
-            option.value = newCat;
-            select.add(option);
-            select.value = newCat; // Select it
-        }
-
-        // Add to update dropdown safely (prevents errors if the update modal isn't built yet)
-        const updateSelect = document.getElementById('update_category');
-        if (updateSelect) {
-            const updateOption = document.createElement('option');
-            updateOption.text = newCat;
-            updateOption.value = newCat;
-            updateSelect.add(updateOption);
-        }
-
-        closeModal('categoryModal');
-        // Clear the input field so it's empty the next time you open it
-        document.getElementById('newCategoryInput').value = "";
-    }
-}
 
 // --- Add Expense Form Logic ---
 document.getElementById('addExpenseForm').addEventListener('submit', function(e) {

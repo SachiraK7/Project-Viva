@@ -198,20 +198,19 @@ if ($db_connected) {
                     
                     <div class="form-group">
                         <label>Category</label>
-                        <div class="cat-group">
-                            <select name="category" id="categorySelect">
-                                <option value="" disabled selected>Choose Category</option>
-                                <option value="Bills">Bills</option>
-                                <option value="Education">Education</option>
-                                <option value="Entertainment">Entertainment</option>
-                                <option value="Food">Food</option>
-                                <option value="Transport">Transport</option>
-                                <option value="Other">Other</option>
-                            </select>
-                            <button type="button" class="btn-add-cat" onclick="openCategoryModal()">
-                                <i class="fa-solid fa-plus" style="margin-right: 5px;"></i> Add Category
-                            </button>
-                        </div>
+                        <select name="category" id="categorySelect" required>
+                            <option value="" disabled selected>Choose Category</option>
+                            <option value="Bills">Bills</option>
+                            <option value="Education">Education</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Fashion">Fashion</option>
+                            <option value="Health">Health</option>
+                            <option value="Household">Household</option>
+                            <option value="Personal care">Personal care</option>
+                            <option value="Saving">Saving</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
                     
                     <div class="form-group">
