@@ -145,7 +145,7 @@ if ($db_connected) {
             </div>
 
             <div class="user-profile">
-                <a href="Settings/settings.php">
+                <a href="/Settings/settings.php">
                     <img src="profile.png" alt="Profile" class="avatar">
                 </a>
             </div>
