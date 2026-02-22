@@ -35,31 +35,23 @@ document.addEventListener("DOMContentLoaded", function() {
     ];
 
     function renderCalendar() {
-        // First day of the month (0-6, Sun-Sat)
         let firstDayIndex = new Date(currYear, currMonth, 1).getDay();
-        // Last date of the current month (e.g., 30 or 31)
         let lastDateOfMonth = new Date(currYear, currMonth + 1, 0).getDate();
         
-        // Update Header
         calendarHeader.innerText = `${months[currMonth]} ${currYear}`;
-
         let liTag = "";
 
-        // Add Weekday Headers
         const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
         days.forEach(day => {
             liTag += `<div class="day-name">${day}</div>`;
         });
 
-        // Adjust firstDayIndex for Monday start
         let adjustedFirstDay = firstDayIndex === 0 ? 6 : firstDayIndex - 1;
 
-        // Add Empty Cells for previous month
         for (let i = 0; i < adjustedFirstDay; i++) {
             liTag += `<div class="date-box empty"></div>`;
         }
 
-        // Add Days of Current Month
         for (let i = 1; i <= lastDateOfMonth; i++) {
             let isToday = i === new Date().getDate() && 
                           currMonth === new Date().getMonth() && 
@@ -69,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function() {
             liTag += `<div class="date-box ${isToday}">${displayNum}</div>`;
         }
 
-        // Fill remaining grid cells dynamically
         let totalCells = adjustedFirstDay + lastDateOfMonth;
         let totalRequiredCells = Math.ceil(totalCells / 7) * 7; 
         let remainingCells = totalRequiredCells - totalCells;
@@ -83,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     renderCalendar();
 
-    // Button Listeners
     prevBtn.addEventListener("click", () => {
         currMonth--;
         if(currMonth < 0) {
@@ -109,22 +99,21 @@ document.addEventListener("DOMContentLoaded", function() {
     const confirmBtn = document.getElementById('confirmBtn');
     const modalDescContent = document.getElementById('modalDescContent');
 
-    // Listen for clicks on the calendar grid
     if(calendarGrid) {
         calendarGrid.addEventListener('click', (e) => {
-            // Check if the clicked element is a valid date-box with a number
+            // Check if the clicked element is a valid date-box with a number inside
             if(e.target.classList.contains('date-box') && !e.target.classList.contains('empty')) {
                 let dayText = e.target.innerText.trim();
                 
                 if(dayText !== '' && !isNaN(dayText)) {
-                    // Format month and day to matching database format (YYYY-MM-DD)
-                    let monthIndex = currMonth + 1; // Convert 0-indexed to 1-indexed
+                    // Create YYYY-MM-DD format to match MySQL output
+                    let monthIndex = currMonth + 1; 
                     let formattedMonth = monthIndex < 10 ? '0' + monthIndex : monthIndex;
                     let formattedDay = dayText.length === 1 ? '0' + dayText : dayText;
                     
                     let targetDate = `${currYear}-${formattedMonth}-${formattedDay}`;
 
-                    // Filter our PHP data to find matches (safeguard added in case expensesData is missing)
+                    // Filter descriptions based on matching expense_date
                     let matchingExpenses = (typeof expensesData !== 'undefined') ? 
                         expensesData.filter(exp => exp.exp_date === targetDate) : [];
 

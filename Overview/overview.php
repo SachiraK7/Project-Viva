@@ -21,8 +21,8 @@ try {
     $db_connected = true; 
     
     // FETCH EXPENSES DATA FOR THE CALENDAR POPUP
-    // *Note: Ensure your actual date column in DB is named 'date'. Change 'date' below if it's named 'created_at', etc.
-    $stmt = $pdo->query("SELECT DATE(date) as exp_date, description FROM expenses");
+    // Updated to use your exact table name ('expense') and column name ('expense_date')
+    $stmt = $pdo->query("SELECT DATE(expense_date) as exp_date, description FROM expense");
     $all_expenses_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 } catch (PDOException $e) {
@@ -42,73 +42,7 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="overview.css">
     
-    <style>
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1000; 
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%; 
-            background-color: rgba(0,0,0,0.4); 
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto; 
-            padding: 20px;
-            border: 1px solid #888;
-            width: 400px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            position: relative;
-        }
-        .close-btn {
-            color: #aaa;
-            float: right;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            position: absolute;
-            top: 15px;
-            right: 20px;
-        }
-        .close-btn:hover { color: black; }
-        .modal-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-        .modal-desc-box {
-            width: 100%;
-            height: 100px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 10px;
-            margin-bottom: 20px;
-            overflow-y: auto;
-            box-sizing: border-box;
-        }
-        .modal-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-        }
-        .modal-actions button {
-            background-color: #000;
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-        }
-        .modal-actions button:hover {
-            background-color: #333;
-        }
-        /* Make calendar days look clickable */
-        .calendar-grid div { cursor: pointer; } 
-    </style>
+
 </head>
 <body>
 
