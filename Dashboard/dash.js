@@ -12,16 +12,20 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     };
 
-    // --- 1. BAR CHART CONFIGURATION ---
+    // --- INITIAL DATA FROM PHP ---
+    const totalExpense = catData.reduce((acc, val) => Number(acc) + Number(val), 0);
+    const legendContainer = document.getElementById('custom-legend');
+
+    // --- 1. BAR CHART: Today’s Category Expenses ---
     const ctxBar = document.getElementById('barChart').getContext('2d');
     const barChart = new Chart(ctxBar, {
         type: 'bar',
         data: {
-            labels: weeklyLabels, 
+            labels: catLabels,
             datasets: [{
-                label: 'Expense',
-                data: weeklyData, 
-                backgroundColor: '#8294F8',
+                label: 'Today\'s Expense ($)',
+                data: catData,
+                backgroundColor: catColors,
                 barThickness: 35
             }]
         },
@@ -31,12 +35,9 @@ document.addEventListener("DOMContentLoaded", function() {
             scales: {
                 y: {
                     beginAtZero: true,
-                    grid: { 
-                        color: '#FFFFFF', 
-                        drawBorder: false 
-                    },
+                    grid: { color: '#FFFFFF', drawBorder: false },
                     ticks: {
-                        stepSize: 50, 
+                        stepSize: 50,
                         callback: function(value) { return '$' + value; },
                         font: { family: 'Poppins', size: 11 }
                     }
@@ -53,17 +54,16 @@ document.addEventListener("DOMContentLoaded", function() {
         plugins: [chartAreaBackground]
     });
 
-    // --- 2. PIE CHART CONFIGURATION ---
+    // --- 2. PIE CHART: Today’s Category Distribution ---
     const ctxPie = document.getElementById('pieChart').getContext('2d');
-    const totalExpense = catData.reduce((acc, val) => Number(acc) + Number(val), 0);
-    const pieChart = new Chart(ctxPie, {
+    let pieChart = new Chart(ctxPie, {
         type: 'pie',
         data: {
-            labels: catLabels, 
+            labels: catLabels,
             datasets: [{
-                data: catData, 
-                backgroundColor: catColors, 
-                borderWidth: 0, 
+                data: catData,
+                backgroundColor: catColors,
+                borderWidth: 0,
                 hoverOffset: 10
             }]
         },
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         label: function(context) {
                             let value = context.raw;
                             let percentage = totalExpense > 0 
-                                ? ((value / totalExpense) * 100).toFixed(1) + '%' 
+                                ? ((value / totalExpense) * 100).toFixed(1) + '%'
                                 : '0%';
                             return context.label + ': ' + percentage;
                         }
@@ -87,53 +87,68 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // --- 3. DYNAMIC CUSTOM PIE CHART LEGEND ---
-    const legendContainer = document.getElementById('custom-legend');
-    if (legendContainer) {
-        let legendHTML = '';
-        catLabels.forEach((label, index) => {
-            if (catColors[index]) { 
+    // --- 3. FUNCTION TO UPDATE CUSTOM LEGEND ---
+    function updateLegend(labels, colors) {
+        if (legendContainer) {
+            let legendHTML = '';
+            labels.forEach((label, index) => {
                 legendHTML += `
                     <div class="legend-item">
-                        <span class="legend-color" style="background-color: ${catColors[index]}; width: 14px; height: 14px; display: inline-block;"></span>
+                        <span class="legend-color" style="background-color: ${colors[index]}; width: 14px; height: 14px; display: inline-block;"></span>
                         <span class="legend-text" style="font-size: 11px; font-family: 'Poppins';">${label}</span>
                     </div>
                 `;
-            }
-        });
-        legendContainer.innerHTML = legendHTML;
+            });
+            legendContainer.innerHTML = legendHTML;
+        }
     }
 
-    // --- 4. AUTO-UPDATE CHARTS EVERY 5 SECONDS ---
-    setInterval(() => {
-        fetch('dashboard_data.php') // PHP endpoint returns JSON with weeklyLabels, weeklyData, catLabels, catData, catColors
-            .then(res => res.json())
-            .then(data => {
-                // Update bar chart
-                barChart.data.labels = data.weeklyLabels;
-                barChart.data.datasets[0].data = data.weeklyData;
-                barChart.update();
+    updateLegend(catLabels, catColors);
 
-                // Update pie chart
-                pieChart.data.labels = data.catLabels;
-                pieChart.data.datasets[0].data = data.catData;
-                pieChart.data.datasets[0].backgroundColor = data.catColors;
-                pieChart.update();
+    // --- 4. FUNCTION TO FETCH LATEST DATA AND UPDATE CHARTS ---
+    function updateDashboardCharts() {
+        fetch('dashboard.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'action=fetch_charts'
+        })
+        .then(res => res.json())
+        .then(data => {
+            // Filter today's expenses for pie chart & bar chart
+            const todayLabels = data.catLabels;
+            const todayData = data.catData;
+            const todayColors = data.catColors;
 
-                // Update custom legend
-                if (legendContainer) {
-                    let legendHTML = '';
-                    data.catLabels.forEach((label, index) => {
-                        legendHTML += `
-                            <div class="legend-item">
-                                <span class="legend-color" style="background-color: ${data.catColors[index]}; width: 14px; height: 14px; display: inline-block;"></span>
-                                <span class="legend-text" style="font-size: 11px; font-family: 'Poppins';">${label}</span>
-                            </div>
-                        `;
-                    });
-                    legendContainer.innerHTML = legendHTML;
-                }
-            });
-    }, 5000);
+            const totalTodayExpense = todayData.reduce((acc, val) => Number(acc) + Number(val), 0);
+
+            // Update bar chart
+            barChart.data.labels = todayLabels;
+            barChart.data.datasets[0].data = todayData;
+            barChart.data.datasets[0].backgroundColor = todayColors;
+            barChart.update();
+
+            // Update pie chart
+            pieChart.data.labels = todayLabels;
+            pieChart.data.datasets[0].data = todayData;
+            pieChart.data.datasets[0].backgroundColor = todayColors;
+            pieChart.update();
+
+            // Update custom legend
+            updateLegend(todayLabels, todayColors);
+
+            // Update cards
+            document.querySelector('.cards-container .card:nth-child(1) .card-amount').textContent = '$' + Number(data.today_expense).toLocaleString();
+            document.querySelector('.cards-container .card:nth-child(2) .card-amount').textContent = '$' + Number(data.week_expense).toLocaleString();
+            document.querySelector('.cards-container .card:nth-child(3) .card-amount').textContent = '$' + Number(data.month_expense).toLocaleString();
+            document.querySelector('.cards-container .card:nth-child(4) .card-amount').textContent = '$' + Number(data.total_expense).toLocaleString();
+        })
+        .catch(err => console.error(err));
+    }
+
+    // --- 5. AUTO-UPDATE EVERY 5 SECONDS ---
+    setInterval(updateDashboardCharts, 5000);
+
+    // --- INITIAL UPDATE ---
+    updateDashboardCharts();
 
 });
